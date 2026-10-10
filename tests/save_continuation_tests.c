@@ -25,7 +25,29 @@ static bool have_assets(void) {
 	return file_exists(gamedata);
 }
 
+// midi.c (not exported via proto.h).
+extern void free_parsed_midi(parsed_midi_type *parsed_midi);
+
+// Regression: free_parsed_midi must zero the struct after freeing, so a
+// second free (e.g. midi_snapshot_commit on an already-freed live cursor) is
+// a safe no-op rather than a double free.
+static void check_free_parsed_midi_no_double_free(void) {
+	parsed_midi_type p;
+	memset(&p, 0, sizeof(p));
+	p.num_tracks = 1;
+	p.tracks = calloc(1, sizeof(midi_track_type));
+	p.tracks[0].events = calloc(1, sizeof(midi_event_type));
+	p.tracks[0].num_events = 1;
+	free_parsed_midi(&p);
+	CHECK(p.tracks == NULL && p.num_tracks == 0, "free_parsed_midi zeroes the struct");
+	free_parsed_midi(&p); // must not double free
+	CHECK(true, "second free_parsed_midi is a safe no-op");
+}
+
 int main(void) {
+	// Part 0: MIDI resource teardown must not double free.
+	check_free_parsed_midi_no_double_free();
+
 	// Part 1: resumed RNG must match the source recurrence.
 	random_seed = 1234;
 	seed_was_init = 1;

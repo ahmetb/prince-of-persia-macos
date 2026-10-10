@@ -100,7 +100,7 @@ void free_parsed_midi(parsed_midi_type* parsed_midi) {
 		free(parsed_midi->tracks[i].events);
 	}
 	free(parsed_midi->tracks);
-	memset(&parsed_midi, 0, sizeof(parsed_midi));
+	memset(parsed_midi, 0, sizeof(*parsed_midi));
 }
 
 bool parse_midi(midi_raw_chunk_type* midi, parsed_midi_type* parsed_midi) {
