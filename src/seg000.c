@@ -1508,9 +1508,17 @@ SaveResult prepare_level_graphics(int level, PreparedLevelGraphics *out, SaveErr
 	}
 
 	if (guardtype != -1) {
+		// The guard sprite sheet header (resource 750) lives in GUARD1.DAT /
+		// GUARD2.DAT, while its images (751..) live in GUARD.DAT/FAT.DAT/...:
+		// keep both open while loading, exactly like load_lev_spr().
+		dat_type *guard_palette_dat = NULL;
+		if (guardtype == 0) {
+			guard_palette_dat = open_dat(custom->tbl_level_type[level] ? "GUARD1.DAT" : "GUARD2.DAT", 'G');
+		}
 		dat_type *guard_dat = open_dat(tbl_guard_dat[guardtype], 'G');
 		out->guard_chtab = load_sprites_from_file(750, 1 << 8, 1);
 		if (guard_dat != NULL) close_dat(guard_dat);
+		if (guard_palette_dat != NULL) close_dat(guard_palette_dat);
 	}
 
 	dat_type *wall_dat = open_dat(filename, 'G');

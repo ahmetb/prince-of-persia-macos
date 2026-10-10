@@ -17,6 +17,14 @@ static int failures = 0;
 	else { printf("ok: %s\n", what); } \
 } while (0)
 
+static bool have_assets(void) {
+	const char *test_assets = getenv("POP_TEST_ASSETS");
+	if (test_assets == NULL || test_assets[0] == '\0') return false;
+	char gamedata[PATH_MAX];
+	if (!macos_copy_path(MACOS_GAME_DATA, "PRINCE.DAT", gamedata, sizeof(gamedata))) return false;
+	return file_exists(gamedata);
+}
+
 int main(void) {
 	// Part 1: resumed RNG must match the source recurrence.
 	random_seed = 1234;
@@ -67,6 +75,29 @@ int main(void) {
 	// exact state (capture memcpys live globals, commit memcpys them back).
 	// The codec round-trip above proves byte-exactness; the RNG check proves
 	// the restored seed continues the same recurrence.
+
+	// Asset-gated: verify the load path's level-graphics preparation (which
+	// loads the guard sprite sheet header from GUARD1/2.DAT plus its images
+	// from GUARD.DAT) with the consented installation.
+	if (have_assets() && SDL_Init(SDL_INIT_VIDEO) == 0) {
+		set_gr_mode(gmMcgaVga);
+		current_target_surface = rect_sthg(onscreen_surface_, &screen_rect);
+		set_hc_pal();
+		init_copyprot_dialog();
+		PreparedLevelGraphics lg;
+		SaveResult lr = prepare_level_graphics(1, &lg, &error);
+		if (lr != SAVE_OK) printf("prepare_level_graphics(1): %s\n", error.message);
+		CHECK(lr == SAVE_OK, "level-1 load graphics prepare succeeds (guard DAT layout)");
+		CHECK(lg.env_chtab != NULL && lg.envwall_chtab != NULL && lg.guard_chtab != NULL,
+		      "level-1 environment/guard/wall chtabs all loaded");
+		if (lr == SAVE_OK) {
+			if (lg.env_chtab) free_chtab(lg.env_chtab);
+			if (lg.envwall_chtab) free_chtab(lg.envwall_chtab);
+			if (lg.guard_chtab) free_chtab(lg.guard_chtab);
+		}
+	} else {
+		printf("skip: asset-dependent level-graphics preparation (requires POP_TEST_ASSETS + consented installation)\n");
+	}
 
 	printf("%s: %d failures\n", failures ? "FAILED" : "PASSED", failures);
 	return failures != 0;
