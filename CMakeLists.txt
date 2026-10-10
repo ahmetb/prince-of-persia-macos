@@ -119,6 +119,7 @@ target_link_libraries(${APP_EXECUTABLE_NAME} PRIVATE
     "-framework CoreVideo"
     "-framework Carbon"
     "-framework AudioUnit"
+    "-framework UniformTypeIdentifiers"
 )
 
 set_source_files_properties(src/macos_app.m PROPERTIES COMPILE_FLAGS "-fobjc-arc")
@@ -189,6 +190,7 @@ function(add_pop_test name source)
         "-framework CoreVideo"
         "-framework Carbon"
         "-framework AudioUnit"
+        "-framework UniformTypeIdentifiers"
     )
     set_source_files_properties(src/macos_app.m PROPERTIES COMPILE_FLAGS "-fobjc-arc")
     target_include_directories(${name} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")

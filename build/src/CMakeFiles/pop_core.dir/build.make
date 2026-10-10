@@ -366,6 +366,20 @@ src/CMakeFiles/pop_core.dir/game_snapshot.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pop_core.dir/game_snapshot.c.s"
 	cd /Users/ahmet.balkan/junk/prince.exe/build/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ahmet.balkan/junk/prince.exe/src/game_snapshot.c -o CMakeFiles/pop_core.dir/game_snapshot.c.s
 
+src/CMakeFiles/pop_core.dir/game_commands.c.o: src/CMakeFiles/pop_core.dir/flags.make
+src/CMakeFiles/pop_core.dir/game_commands.c.o: /Users/ahmet.balkan/junk/prince.exe/src/game_commands.c
+src/CMakeFiles/pop_core.dir/game_commands.c.o: src/CMakeFiles/pop_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object src/CMakeFiles/pop_core.dir/game_commands.c.o"
+	cd /Users/ahmet.balkan/junk/prince.exe/build/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT src/CMakeFiles/pop_core.dir/game_commands.c.o -MF CMakeFiles/pop_core.dir/game_commands.c.o.d -o CMakeFiles/pop_core.dir/game_commands.c.o -c /Users/ahmet.balkan/junk/prince.exe/src/game_commands.c
+
+src/CMakeFiles/pop_core.dir/game_commands.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/pop_core.dir/game_commands.c.i"
+	cd /Users/ahmet.balkan/junk/prince.exe/build/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ahmet.balkan/junk/prince.exe/src/game_commands.c > CMakeFiles/pop_core.dir/game_commands.c.i
+
+src/CMakeFiles/pop_core.dir/game_commands.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pop_core.dir/game_commands.c.s"
+	cd /Users/ahmet.balkan/junk/prince.exe/build/src && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ahmet.balkan/junk/prince.exe/src/game_commands.c -o CMakeFiles/pop_core.dir/game_commands.c.s
+
 # Object files for target pop_core
 pop_core_OBJECTS = \
 "CMakeFiles/pop_core.dir/data.c.o" \
@@ -388,7 +402,8 @@ pop_core_OBJECTS = \
 "CMakeFiles/pop_core.dir/screenshot.c.o" \
 "CMakeFiles/pop_core.dir/menu.c.o" \
 "CMakeFiles/pop_core.dir/stb_vorbis.c.o" \
-"CMakeFiles/pop_core.dir/game_snapshot.c.o"
+"CMakeFiles/pop_core.dir/game_snapshot.c.o" \
+"CMakeFiles/pop_core.dir/game_commands.c.o"
 
 # External object files for target pop_core
 pop_core_EXTERNAL_OBJECTS =
@@ -414,9 +429,10 @@ src/libpop_core.a: src/CMakeFiles/pop_core.dir/screenshot.c.o
 src/libpop_core.a: src/CMakeFiles/pop_core.dir/menu.c.o
 src/libpop_core.a: src/CMakeFiles/pop_core.dir/stb_vorbis.c.o
 src/libpop_core.a: src/CMakeFiles/pop_core.dir/game_snapshot.c.o
+src/libpop_core.a: src/CMakeFiles/pop_core.dir/game_commands.c.o
 src/libpop_core.a: src/CMakeFiles/pop_core.dir/build.make
 src/libpop_core.a: src/CMakeFiles/pop_core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Linking C static library libpop_core.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Linking C static library libpop_core.a"
 	cd /Users/ahmet.balkan/junk/prince.exe/build/src && $(CMAKE_COMMAND) -P CMakeFiles/pop_core.dir/cmake_clean_target.cmake
 	cd /Users/ahmet.balkan/junk/prince.exe/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pop_core.dir/link.txt --verbose=$(VERBOSE)
 

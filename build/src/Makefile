@@ -164,6 +164,30 @@ data.c.s:
 	cd /Users/ahmet.balkan/junk/prince.exe/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/data.c.s
 .PHONY : data.c.s
 
+game_commands.o: game_commands.c.o
+.PHONY : game_commands.o
+
+# target to build an object file
+game_commands.c.o:
+	cd /Users/ahmet.balkan/junk/prince.exe/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/game_commands.c.o
+.PHONY : game_commands.c.o
+
+game_commands.i: game_commands.c.i
+.PHONY : game_commands.i
+
+# target to preprocess a source file
+game_commands.c.i:
+	cd /Users/ahmet.balkan/junk/prince.exe/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/game_commands.c.i
+.PHONY : game_commands.c.i
+
+game_commands.s: game_commands.c.s
+.PHONY : game_commands.s
+
+# target to generate assembly for a file
+game_commands.c.s:
+	cd /Users/ahmet.balkan/junk/prince.exe/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/game_commands.c.s
+.PHONY : game_commands.c.s
+
 game_snapshot.o: game_snapshot.c.o
 .PHONY : game_snapshot.o
 
@@ -657,6 +681,9 @@ help:
 	@echo "... data.o"
 	@echo "... data.i"
 	@echo "... data.s"
+	@echo "... game_commands.o"
+	@echo "... game_commands.i"
+	@echo "... game_commands.s"
 	@echo "... game_snapshot.o"
 	@echo "... game_snapshot.i"
 	@echo "... game_snapshot.s"

@@ -19,6 +19,7 @@ The authors of this program may be contacted at https://forum.princed.org
 */
 
 #include "common.h"
+#include "game_commands.h"
 
 #ifdef USE_MENU
 
@@ -1032,15 +1033,12 @@ void pause_menu_clicked(pause_menu_item_type* item) {
 			need_close_menu = true;
 			break;
 		case PAUSE_MENU_SAVE_GAME:
-			// TODO: Manual save games?
-			if (Kid.alive < 0) need_quick_save = 1;
+			game_request_command(GAME_SAVE_NAMED);
 			need_close_menu = true;
 			break;
 		case PAUSE_MENU_LOAD_GAME:
-			// TODO: Manual save games?
-			need_quick_load = 1;
+			game_request_command(GAME_LOAD_NAMED);
 			need_close_menu = true;
-			stop_sounds();
 			break;
 		case PAUSE_MENU_RESTART_LEVEL:
 			last_key_scancode = SDL_SCANCODE_A | WITH_CTRL;
@@ -2062,12 +2060,12 @@ int key_test_paused_menu(int key) {
 			break;
 		case SDL_SCANCODE_F6:
 		case SDL_SCANCODE_F6 | WITH_SHIFT:
-			if (Kid.alive < 0) need_quick_save = 1;
+			game_request_command(GAME_QUICKSAVE);
 			need_close_menu = true;
 			break;
 		case SDL_SCANCODE_F9:
 		case SDL_SCANCODE_F9 | WITH_SHIFT:
-			need_quick_load = 1;
+			game_request_command(GAME_QUICKLOAD);
 			need_close_menu = true;
 			break;
 	}
@@ -2111,7 +2109,6 @@ void process_ingame_settings_user_managed(SDL_RWops* rw, rw_process_func_type pr
 void process_ingame_settings_mod_managed(SDL_RWops* rw, rw_process_func_type process_func) {
 	process(enable_copyprot);
 	process(enable_quicksave);
-	process(enable_quicksave_penalty);
 	process(use_fixes_and_enhancements);
 	process(fixes_saved);
 	process(use_custom_options);

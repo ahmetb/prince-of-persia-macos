@@ -20,6 +20,7 @@ The authors of this program may be contacted at https://forum.princed.org
 
 #include "common.h"
 #include "macos_app.h"
+#include "game_commands.h"
 #include <time.h>
 #include <errno.h>
 
@@ -3594,6 +3595,7 @@ void process_events() {
 				break;
 		}
 	}
+	game_commands_consume_ui_keys();
 }
 
 void idle() {

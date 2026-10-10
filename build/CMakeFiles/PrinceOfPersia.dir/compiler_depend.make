@@ -898,6 +898,13 @@ CMakeFiles/PrinceOfPersia.dir/src/macos_app.m.o: /Users/ahmet.balkan/junk/prince
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Headers/oidscrl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Headers/x509defs.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Symbols.framework/Headers/NSSymbolEffect.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/NSItemProvider+UTType.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTAdditions.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTCoreTypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTDefines.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTTagClass.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTType.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UniformTypeIdentifiers.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AssertMacros.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h \
@@ -1340,6 +1347,7 @@ CMakeFiles/PrinceOfPersia.dir/src/macos_app.m.o: /Users/ahmet.balkan/junk/prince
   _deps/sdl2-build/include/SDL2/SDL_video.h \
   _deps/sdl2-build/include/SDL2/begin_code.h \
   _deps/sdl2-build/include/SDL2/close_code.h \
+  /Users/ahmet.balkan/junk/prince.exe/src/game_commands.h \
   /Users/ahmet.balkan/junk/prince.exe/src/macos_app.h
 
 CMakeFiles/PrinceOfPersia.dir/src/main.c.o: /Users/ahmet.balkan/junk/prince.exe/src/main.c \
@@ -1577,6 +1585,8 @@ CMakeFiles/PrinceOfPersia.dir/src/main.c.o: /Users/ahmet.balkan/junk/prince.exe/
 
 /Users/ahmet.balkan/junk/prince.exe/src/macos_app.h:
 
+/Users/ahmet.balkan/junk/prince.exe/src/game_commands.h:
+
 _deps/sdl2-build/include/SDL2/close_code.h:
 
 _deps/sdl2-build/include/SDL2/begin_code.h:
@@ -1788,8 +1798,6 @@ _deps/sdl2-build/include/SDL2/SDL_misc.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_endian.h:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/__endian.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/strings.h:
 
@@ -2108,6 +2116,18 @@ _deps/sdl2-build/include/SDL2/SDL_locale.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AssertMacros.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UniformTypeIdentifiers.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTType.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/__endian.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTCoreTypes.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTAdditions.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/NSItemProvider+UTType.h:
 
 _deps/sdl2-build/include/SDL2/SDL_mutex.h:
 
@@ -2892,6 +2912,8 @@ _deps/sdl2-build/include/SDL2/SDL_assert.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreServices.framework/Frameworks/AE.framework/Headers/AEUserTermTypes.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreServices.framework/Frameworks/AE.framework/Headers/AE.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTTagClass.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImageDefines.h:
 
@@ -3982,6 +4004,8 @@ _deps/sdl2-build/include/SDL2/SDL_surface.h:
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSSecureTextField.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arpa/inet.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTDefines.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSCollectionViewFlowLayout.h:
 

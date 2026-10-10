@@ -19,6 +19,8 @@ The authors of this program may be contacted at https://forum.princed.org
 */
 
 #include "common.h"
+#include "game_snapshot.h"
+#include "game_commands.h"
 
 // data:3D1A
 sbyte distance_mirror;
@@ -134,6 +136,21 @@ void play_level(int level_number) {
 	}
 }
 
+// Enters the frame-boundary continuation for a freshly committed native load
+// (title-load bypass). The level graphics/state/audio are already installed;
+// we run play_level_2() and then hand off to play_level() for any subsequent
+// restart or level transition, exactly as the enclosing play_level() loop
+// would after a play_level_2() return.
+void play_level_continue(void) {
+	int next = play_level_2();
+	free_peels();
+	if (next == current_level) {
+		play_level(current_level); // restart path: fresh init of the current level
+	} else {
+		play_level(next);          // transition path: cutscene + fresh init
+	}
+}
+
 // seg003:01A3
 void do_startpos() {
 	word x;
@@ -223,10 +240,6 @@ void draw_level_first() {
 	redraw_screen(0);
 	draw_kid_hp(hitp_curr, hitp_max);
 
-#ifdef USE_QUICKSAVE
-	check_quick_op();
-#endif
-
 #ifdef USE_SCREENSHOT
 	auto_screenshot();
 #endif
@@ -304,7 +317,11 @@ void redraw_screen(int drawing_different_room) {
 			clear_kbd_buf();
 		}
 	}
-	exit_room_timer = 2;
+	if (snapshot_first_redraw) {
+		snapshot_first_redraw = false;
+	} else {
+		exit_room_timer = 2;
+	}
 
 }
 
@@ -349,9 +366,9 @@ int play_level_2() {
 	test_timing_state_type test_timing_state = {0};
 #endif
 	while (1) { // main loop
-#ifdef USE_QUICKSAVE
-		check_quick_op();
-#endif
+		// Complete-frame boundary: service any pending native save/load command
+		// before timers()/play_frame() advance the simulation.
+		game_service_commands(GAME_SAFE_FRAME);
 #ifdef CHECK_TIMING
 		test_timings(&test_timing_state);
 #endif

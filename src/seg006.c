@@ -19,6 +19,7 @@ The authors of this program may be contacted at https://forum.princed.org
 */
 
 #include "common.h"
+#include "game_commands.h"
 
 #define SEQTBL_BASE 0x196E
 #define SEQTBL_0 (seqtbl - SEQTBL_BASE)
@@ -1414,10 +1415,8 @@ void control_kid() {
 		control();
 		// The player can start a new game or load a saved game during the demo.
 		word key = key_test_quit();
-		if (key == (SDL_SCANCODE_L | WITH_CTRL)) { // Ctrl+L
-			if (load_game()) {
-				start_game();
-			}
+		if (key == (SDL_SCANCODE_L | WITH_CTRL)) { // Ctrl+L → Load Game…
+			game_request_command(GAME_LOAD_NAMED);
 		} else {
 			if (key) {
 				start_level = custom->first_level; // 1

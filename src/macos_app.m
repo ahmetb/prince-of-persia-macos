@@ -9,9 +9,11 @@ the Free Software Foundation, either version 3 of the License, or
 */
 
 #import "macos_app.h"
+#import "game_commands.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import <SDL.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <sys/stat.h>
@@ -660,6 +662,8 @@ static bool publish_candidate(const char *candidate_path, char *error, size_t er
 // Top-level acquisition gate
 // ---------------------------------------------------------------------------
 
+static void install_game_menu(void);
+
 bool macos_prepare_application(void) {
 	@autoreleasepool {
 		// Canonicalize argv[0] to the bundle executable's absolute path; the
@@ -679,6 +683,8 @@ bool macos_prepare_application(void) {
 				return false;
 			}
 		}
+		// Install the native Game menu (Save/Load/Quicksave/Quickload).
+		install_game_menu();
 		// 2. Resolve the storage roots beneath Application Support.
 		resolve_roots();
 
@@ -759,4 +765,100 @@ bool macos_prepare_application(void) {
 			}
 		}
 	}
+}
+
+// ---------------------------------------------------------------------------
+// Native Game menu + save/load panels
+// ---------------------------------------------------------------------------
+
+@interface MacosMenuTarget : NSObject
+@end
+
+static MacosMenuTarget *g_menu_target;
+
+@implementation MacosMenuTarget
+- (void)saveGame:(id)sender { game_request_command(GAME_SAVE_NAMED); }
+- (void)loadGame:(id)sender { game_request_command(GAME_LOAD_NAMED); }
+- (void)quicksave:(id)sender { game_request_command(GAME_QUICKSAVE); }
+- (void)quickload:(id)sender { game_request_command(GAME_QUICKLOAD); }
+@end
+
+static NSString *function_key(unichar code) {
+	return [NSString stringWithFormat:@"%C", code];
+}
+
+static void install_game_menu(void) {
+	if (NSApp == nil) return;
+	NSMenu *mainMenu = NSApp.mainMenu;
+	if (mainMenu == nil) {
+		mainMenu = [[NSMenu alloc] initWithTitle:@""];
+		NSApp.mainMenu = mainMenu;
+	}
+
+	// App menu (Quit keeps SDL's quit path via terminate:).
+	NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:@"Prince of Persia" action:nil keyEquivalent:@""];
+	NSMenu *appMenu = [[NSMenu alloc] initWithTitle:@"Prince of Persia"];
+	[appMenu addItemWithTitle:NSLocalizedString(@"Quit Prince of Persia", nil)
+	                   action:@selector(terminate:) keyEquivalent:@"q"];
+	appItem.submenu = appMenu;
+	[mainMenu addItem:appItem];
+
+	// Game menu.
+	g_menu_target = [[MacosMenuTarget alloc] init];
+	NSMenuItem *gameItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Game", nil) action:nil keyEquivalent:@""];
+	NSMenu *gameMenu = [[NSMenu alloc] initWithTitle:@"Game"];
+
+	NSMenuItem *save = [gameMenu addItemWithTitle:NSLocalizedString(@"Save Game…", nil)
+	                                       action:@selector(saveGame:) keyEquivalent:@"s"];
+	[save setTarget:g_menu_target];
+	NSMenuItem *load = [gameMenu addItemWithTitle:NSLocalizedString(@"Load Game…", nil)
+	                                       action:@selector(loadGame:) keyEquivalent:@"o"];
+	[load setTarget:g_menu_target];
+	NSMenuItem *qsave = [gameMenu addItemWithTitle:NSLocalizedString(@"Quicksave", nil)
+	                                        action:@selector(quicksave:)
+	                                 keyEquivalent:function_key(NSF6FunctionKey)];
+	[qsave setTarget:g_menu_target];
+	NSMenuItem *qload = [gameMenu addItemWithTitle:NSLocalizedString(@"Quickload", nil)
+	                                        action:@selector(quickload:)
+	                                 keyEquivalent:function_key(NSF9FunctionKey)];
+	[qload setTarget:g_menu_target];
+
+	gameItem.submenu = gameMenu;
+	[mainMenu addItem:gameItem];
+}
+
+void macos_run_game_panel(uint64_t generation, bool is_save, void (*pump)(void)) {
+	NSSavePanel *panel = is_save ? [NSSavePanel savePanel] : (NSSavePanel *)[NSOpenPanel openPanel];
+	UTType *popsave = [UTType typeWithFilenameExtension:@"popsave"];
+	panel.allowedContentTypes = @[popsave];
+	panel.allowsOtherFileTypes = NO;
+	panel.canCreateDirectories = YES;
+	if (is_save) {
+		panel.nameFieldStringValue = @"game.popsave";
+	}
+
+	char saves[PATH_MAX];
+	if (macos_copy_path(MACOS_SAVES, "", saves, sizeof(saves))) {
+		panel.directoryURL = [NSURL fileURLWithPath:@(saves)];
+	}
+
+	NSString *chosen = nil;
+	bool cancelled = true;
+	NSModalSession session = [NSApp beginModalSessionForWindow:panel];
+	for (;;) {
+		NSModalResponse response = [NSApp runModalSession:session];
+		if (response == NSModalResponseOK) {
+			chosen = panel.URL.path;
+			cancelled = false;
+			break;
+		}
+		if (response == NSModalResponseCancel) {
+			cancelled = true;
+			break;
+		}
+		if (pump != NULL) pump();
+	}
+	[NSApp endModalSession:session];
+
+	game_complete_panel(generation, cancelled ? NULL : chosen.UTF8String, cancelled);
 }

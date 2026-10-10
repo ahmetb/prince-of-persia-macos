@@ -305,6 +305,10 @@ void audio_set_panel_suspended(bool suspended);
 // Restore-only presentation of a freshly committed snapshot.
 void redraw_loaded_snapshot(void);
 
+// Set around the first ordinary-frame redraw after a load; redraw_screen()
+// uses it to preserve the restored exit_room_timer value.
+extern bool snapshot_first_redraw;
+
 #ifdef __cplusplus
 }
 #endif

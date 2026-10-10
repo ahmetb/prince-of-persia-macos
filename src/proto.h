@@ -61,8 +61,6 @@ void transition_ltr(void);
 void release_title_images(void);
 void draw_full_image(enum full_image_id id);
 void load_kid_sprite(void);
-void save_game(void);
-short load_game(void);
 void clear_screen_and_sounds(void);
 void parse_cmdline_sound(void);
 void free_optional_sounds(void);
@@ -75,7 +73,6 @@ void show_loading(void);
 void show_quotes(void);
 void show_splash(void);
 #ifdef USE_QUICKSAVE
-void check_quick_op(void);
 void restore_room_after_quick_load(void);
 #endif // USE_QUICKSAVE
 const char* get_writable_file_path(char* custom_path_buffer, size_t max_len, const char* file_name);
@@ -185,6 +182,7 @@ void autocontrol_shadow_level12(void);
 // SEG003.C
 void init_game(int level);
 void play_level(int level_number);
+void play_level_continue(void);
 void do_startpos(void);
 void set_start_pos(void);
 void find_start_level_door(void);
@@ -670,6 +668,7 @@ void turn_fixes_and_enhancements_on_off(byte new_state);
 void turn_custom_options_on_off(byte new_state);
 void set_options_to_default(void);
 void load_global_options(void);
+void apply_fixed_gameplay_profile(void);
 void load_mod_options(void);
 int process_rw_write(SDL_RWops* rw, void* data, size_t data_size);
 int process_rw_read(SDL_RWops* rw, void* data, size_t data_size);

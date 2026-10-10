@@ -987,12 +987,45 @@ SaveResult game_snapshot_prepare(const GameSnapshot *src,
 	return SAVE_OK;
 }
 
+// Restore-only presentation state.
+static byte g_restore_frame[POP_FRAME_RGB_BYTES];
+bool snapshot_first_redraw = false;
+
 void game_snapshot_commit(PreparedSnapshot *prepared) {
 	if (prepared->level_graphics != NULL) {
 		commit_level_graphics(prepared->level_graphics);
 	}
 	commit_game_state(&prepared->snapshot);
 	audio_state_commit(&prepared->audio);
+	memcpy(g_restore_frame, prepared->snapshot.frame, POP_FRAME_RGB_BYTES);
+}
+
+// Restore-only presentation: rebind room/door/tile pointers from the restored
+// state, request the first ordinary frame to rebuild drawing caches, and
+// blit the saved RGB24 frame + present once. No timers/gameplay/mirror/death
+// side effects run here.
+void redraw_loaded_snapshot(void) {
+	doorlink1_ad = &level.doorlinks1[0];
+	doorlink2_ad = &level.doorlinks2[0];
+	load_room_links();
+	get_room_address(drawn_room);
+	// First ordinary frame after load rebuilds drawing caches; redraw_screen()
+	// suppresses its exit_room_timer reset during that restore-triggered redraw.
+	snapshot_first_redraw = true;
+	need_full_redraw = 1;
+	different_room = 0;
+
+	SDL_Surface *surface = get_final_surface();
+	if (surface != NULL) {
+		byte *pixels = (byte *)surface->pixels;
+		int pitch = surface->pitch;
+		for (int row = 0; row < POP_FRAME_H; ++row) {
+			memcpy(pixels + (size_t)row * (size_t)pitch,
+			       g_restore_frame + (size_t)row * POP_FRAME_W * 3,
+			       POP_FRAME_W * 3);
+		}
+	}
+	update_screen();
 }
 
 // Disposes candidate-owned objects without installing any global state.

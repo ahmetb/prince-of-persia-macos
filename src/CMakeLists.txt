@@ -35,6 +35,8 @@ set(POP_CORE_SOURCES
         game_snapshot.h
         game_state_fields.def
         midi_snapshot.h
+        game_commands.c
+        game_commands.h
 )
 
 add_library(pop_core STATIC ${POP_CORE_SOURCES})

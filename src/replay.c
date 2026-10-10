@@ -327,7 +327,8 @@ typedef void process_options_section_func_type(SDL_RWops* rw, rw_process_func_ty
 void options_process_features(SDL_RWops* rw, rw_process_func_type process_func) {
 	process(enable_copyprot);
 	process(enable_quicksave);
-	process(enable_quicksave_penalty);
+	byte quicksave_penalty_ignored = 0; // fixed profile: no quickload time penalty
+	process(quicksave_penalty_ignored);
 }
 
 fixes_options_type fixes_options_replay;

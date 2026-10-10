@@ -21,6 +21,7 @@ The authors of this program may be contacted at https://forum.princed.org
 #include "common.h"
 #include "macos_app.h"
 #include "game_snapshot.h"
+#include "game_commands.h"
 #include <setjmp.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -67,6 +68,7 @@ void pop_main() {
 #ifdef USE_MENU
 	load_ingame_settings();
 #endif
+	apply_fixed_gameplay_profile();
 #ifdef USE_REPLAY
 	// Legacy replay output lives under the app-owned Replays root.
 	macos_copy_path(MACOS_REPLAYS, "", replays_folder, sizeof(replays_folder));
@@ -244,17 +246,10 @@ void start_game() {
 #ifdef USE_QUICKSAVE
 // All these functions return true on success, false otherwise.
 
-FILE* quick_fp;
-
-int process_save(void* data, size_t data_size) {
-	return fwrite(data, data_size, 1, quick_fp) == 1;
-}
-
-int process_load(void* data, size_t data_size) {
-	return fread(data, data_size, 1, quick_fp) == 1;
-}
-
 typedef int process_func_type(void* data, size_t data_size);
+
+// Legacy replay contract header (retained for replay restore).
+const char quick_version[9] = "V1.16b4 ";
 
 int quick_process(process_func_type process_func) {
 	int ok = 1;
@@ -263,31 +258,6 @@ int quick_process(process_func_type process_func) {
 #define POP_BASE_FIELD(name, c_type, kind, decl) ok = ok && process_func(&(name), sizeof(name));
 #include "game_state_fields.def"
 #undef POP_BASE_FIELD
-	return ok;
-}
-
-const char* quick_file = "QUICKSAVE.SAV";
-const char quick_version[] = "V1.16b4 ";
-char quick_control[] = "........";
-
-const char* get_quick_path(char* custom_path_buffer, size_t max_len) {
-	return get_writable_file_path(custom_path_buffer, max_len, quick_file /*QUICKSAVE.SAV*/ );
-}
-
-int quick_save(void) {
-	int ok = 0;
-	char custom_quick_path[POP_MAX_PATH];
-	const char* path = get_quick_path(custom_quick_path, sizeof(custom_quick_path));
-	quick_fp = fopen(path, "wb");
-	if (quick_fp != NULL) {
-		process_save((void*) quick_version, COUNT(quick_version));
-		ok = quick_process(process_save);
-		fclose(quick_fp);
-		quick_fp = NULL;
-	} else {
-		perror("quick_save: fopen");
-		printf("Tried to open for writing: %s\n", path);
-	}
 	return ok;
 }
 
@@ -332,95 +302,6 @@ void restore_room_after_quick_load() {
 	exit_room_timer = 0;
 }
 
-int quick_load(void) {
-	int ok = 0;
-	char custom_quick_path[POP_MAX_PATH];
-	const char* path = get_quick_path(custom_quick_path, sizeof(custom_quick_path));
-	quick_fp = fopen(path, "rb");
-	if (quick_fp != NULL) {
-		// check quicksave version is compatible
-		process_load(quick_control, COUNT(quick_control));
-		if (strcmp(quick_control, quick_version) != 0) {
-			fclose(quick_fp);
-			quick_fp = NULL;
-			return 0;
-		}
-
-		stop_sounds();
-		draw_rect(&screen_rect, color_0_black);
-		update_screen();
-		delay_ticks(5); // briefly display a black screen as a visual cue
-
-		short old_rem_min = rem_min;
-		word old_rem_tick = rem_tick;
-
-		ok = quick_process(process_load);
-		fclose(quick_fp);
-		quick_fp = NULL;
-
-		restore_room_after_quick_load();
-		update_screen();
-
-		#ifdef USE_QUICKLOAD_PENALTY
-		// Subtract one minute from the remaining time (if it is above 5 minutes)
-		if (enable_quicksave_penalty &&
-			// don't apply the penalty after time has already stopped!
-			(current_level < /*13*/ custom->victory_stops_time_level || (current_level == /*13*/ custom->victory_stops_time_level && leveldoor_open < 2))
-		) {
-			int ticks_elapsed = 720 * (rem_min - old_rem_min) + (rem_tick - old_rem_tick);
-			// don't restore time at all if the elapsed time is between 0 and 1 minutes
-			if (ticks_elapsed > 0 && ticks_elapsed < 720) {
-				rem_min = old_rem_min;
-				rem_tick = old_rem_tick;
-			}
-			else {
-				if (rem_min == 6) rem_tick = 719; // crop to "5 minutes" exactly, if hitting the threshold in <1 minute
-				if (rem_min > 5 /*be lenient, not much time left*/ || rem_min < 0 /*time runs 'forward' if < 0*/) {
-					--rem_min;
-				}
-			}
-
-		}
-		#endif
-	} else {
-		perror("quick_load: fopen");
-		printf("Tried to open for reading: %s\n", path);
-	}
-	return ok;
-}
-
-void check_quick_op() {
-	if (!enable_quicksave) return;
-	if (need_quick_save) {
-		if ((!is_feather_fall || fixes->fix_quicksave_during_feather) && quick_save()) {
-			display_text_bottom("QUICKSAVE");
-		} else {
-			display_text_bottom("NO QUICKSAVE");
-		}
-		need_quick_save = 0;
-		text_time_total = 24;
-		text_time_remaining = 24;
-	}
-	if (need_quick_load) {
-/*
-#ifdef USE_REPLAY
-		if (recording) {
-			stop_recording(); // quickloading would mess up the replay!
-		}
-#endif
-*/
-		if (quick_load()) {
-			display_text_bottom("QUICKLOAD");
-		} else {
-			display_text_bottom("NO QUICKLOAD");
-		}
-		need_quick_load = 0;
-		text_time_total = 24;
-		text_time_remaining = 24;
-	}
-}
-
-
 #endif // USE_QUICKSAVE
 
 Uint32 temp_shift_release_callback(Uint32 interval, void *param) {
@@ -452,10 +333,9 @@ int process_key() {
 	/*nothing*/;
 
 	if (start_level < 0) {
+		// Title safe point: service pending commands before any key starts a game.
+		game_service_commands(GAME_SAFE_TITLE);
 		if (key || control_shift) {
-			#ifdef USE_QUICKSAVE
-			if (key == SDL_SCANCODE_F9) need_quick_load = 1;
-			#endif
 			#ifdef USE_REPLAY
 			if (key == SDL_SCANCODE_TAB || need_start_replay) {
 				start_replay();
@@ -465,8 +345,12 @@ int process_key() {
 				start_recording();
 			} else
 			#endif
-			if (key == (SDL_SCANCODE_L | WITH_CTRL)) { // Ctrl+L
-				if (!load_game()) return 0;
+			if (key == (SDL_SCANCODE_L | WITH_CTRL)) { // Ctrl+L → Load Game…
+				game_request_command(GAME_LOAD_NAMED);
+				return 0;
+			} else if (key == SDL_SCANCODE_F9) { // F9 → quickload
+				game_request_command(GAME_QUICKLOAD);
+				return 0;
 			} else {
 				start_level = custom->first_level; // 1
 			}
@@ -516,12 +400,8 @@ int process_key() {
 				is_restart_level = 1;
 			}
 		break;
-		case SDL_SCANCODE_G | WITH_CTRL: // Ctrl+G
-			// CusPoP: first and last level where saving is allowed
-//			if (current_level > 2 && current_level < 14) { // original
-			if (current_level >= custom->saving_allowed_first_level && current_level <= custom->saving_allowed_last_level) {
-				save_game();
-			}
+		case SDL_SCANCODE_G | WITH_CTRL: // Ctrl+G → Save Game…
+			game_request_command(GAME_SAVE_NAMED);
 		break;
 		case SDL_SCANCODE_J | WITH_CTRL: // Ctrl+J
 			if ((sound_flags & sfDigi) && sound_mode == smTandy) {
@@ -617,11 +497,11 @@ int process_key() {
 #ifdef USE_QUICKSAVE
 		case SDL_SCANCODE_F6:
 		case SDL_SCANCODE_F6 | WITH_SHIFT:
-			if (Kid.alive < 0) need_quick_save = 1;
+			game_request_command(GAME_QUICKSAVE);
 		break;
 		case SDL_SCANCODE_F9:
 		case SDL_SCANCODE_F9 | WITH_SHIFT:
-			need_quick_load = 1;
+			game_request_command(GAME_QUICKLOAD);
 		break;
 #ifdef USE_REPLAY
 		case SDL_SCANCODE_TAB | WITH_CTRL:
@@ -2122,78 +2002,6 @@ void draw_full_image(enum full_image_id id) {
 // seg000:1D2C
 void load_kid_sprite() {
 	load_chtab_from_file(id_chtab_2_kid, 400, "KID.DAT", 1<<7);
-}
-
-const char* save_file = "PRINCE.SAV";
-
-const char* get_save_path(char* custom_path_buffer, size_t max_len) {
-	return get_writable_file_path(custom_path_buffer, max_len, save_file /*PRINCE.SAV*/ );
-}
-
-// seg000:1D45
-void save_game() {
-	word success = 0;
-	char custom_save_path[POP_MAX_PATH];
-	const char* save_path = get_save_path(custom_save_path, sizeof(custom_save_path));
-
-	FILE* handle = fopen(save_path, "wb");
-	if (handle != NULL) {
-		if (fwrite(&rem_min, 1, 2, handle) != 2) goto error;
-		if (fwrite(&rem_tick, 1, 2, handle) != 2) goto error;
-		if (fwrite(&current_level, 1, 2, handle) != 2) goto error;
-		if (fwrite(&hitp_beg_lev, 1, 2, handle) != 2) goto error;
-		success = 1;
-		error:
-		if (!success) {
-			printf("save_game: fwrite: Can not write to: %s\n", save_path);
-		}
-		fclose(handle);
-		if (!success) {
-			remove(save_path);
-		}
-	} else {
-		perror("save_game: fopen");
-		printf("Tried to open for writing: %s\n", save_path);
-	}
-
-	if (success) {
-		display_text_bottom("GAME SAVED");
-	} else {
-		display_text_bottom("UNABLE TO SAVE GAME");
-		//play_sound_from_buffer(&sound_cant_save);
-	}
-	text_time_remaining = 24;
-}
-
-// seg000:1E38
-short load_game() {
-	word success = 0;
-	char custom_save_path[POP_MAX_PATH];
-	const char* save_path = get_save_path(custom_save_path, sizeof(custom_save_path));
-
-	FILE* handle = fopen(save_path, "rb");
-	if (handle != NULL) {
-		if (fread(&rem_min, 1, 2, handle) != 2) goto error;
-		if (fread(&rem_tick, 1, 2, handle) != 2) goto error;
-		if (fread(&start_level, 1, 2, handle) != 2) goto error;
-		if (fread(&hitp_beg_lev, 1, 2, handle) != 2) goto error;
-#ifdef USE_COPYPROT
-		if (enable_copyprot && custom->copyprot_level > 0) {
-			custom->copyprot_level = start_level;
-		}
-#endif
-		success = 1;
-		dont_reset_time = 1;
-		error:
-		if (!success) {
-			printf("load_game: fread: Can not read from: %s\n", save_path);
-		}
-		fclose(handle);
-	} else {
-		perror("load_game: fopen");
-		printf("Tried to open for reading: %s\n", save_path);
-	}
-	return success;
 }
 
 // seg000:1F02

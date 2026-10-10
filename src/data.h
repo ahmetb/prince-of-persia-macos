@@ -691,8 +691,6 @@ extern int last_any_key_scancode; // for showmessage_any_key
 extern font_type hc_font INIT(= {0x01,0xFF, 7,2,1,1, NULL});
 extern textstate_type textstate INIT(= {0,0,0,15,&hc_font});
 #endif
-extern int need_quick_save INIT(= 0);
-extern int need_quick_load INIT(= 0);
 
 #ifdef USE_REPLAY
 extern byte recording INIT(= 0);
@@ -738,7 +736,6 @@ extern byte joystick_only_horizontal INIT(= 0);
 extern int joystick_threshold INIT(= 8000);
 extern char gamecontrollerdb_file[POP_MAX_PATH] INIT(= "");
 extern byte enable_quicksave INIT(= 1);
-extern byte enable_quicksave_penalty INIT(= 1);
 extern byte enable_replay INIT(= 1);
 extern byte use_correct_aspect_ratio INIT(= 1);
 extern byte use_integer_scaling INIT(= 0);

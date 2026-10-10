@@ -222,6 +222,7 @@ src/CMakeFiles/pop_core.dir/seg009.c.o: \
   /Users/ahmet.balkan/junk/prince.exe/src/proto.h \
   /Users/ahmet.balkan/junk/prince.exe/src/data.h \
   /Users/ahmet.balkan/junk/prince.exe/src/macos_app.h \
+  /Users/ahmet.balkan/junk/prince.exe/src/game_commands.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/errno.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dirent.h \

@@ -204,7 +204,6 @@ static int global_ini_callback(const char *section, const char *name, const char
 
 	if (check_ini_section("AdditionalFeatures")) {
 		process_boolean("enable_quicksave", &enable_quicksave);
-		process_boolean("enable_quicksave_penalty", &enable_quicksave_penalty);
 
 #ifdef USE_REPLAY
 		process_boolean("enable_replay", &enable_replay);
@@ -459,7 +458,6 @@ void set_options_to_default() {
 	joystick_only_horizontal = 1;
 	joystick_threshold = 8000;
 	enable_quicksave = 1;
-	enable_quicksave_penalty = 1;
 	enable_replay = 1;
 #ifdef USE_LIGHTING
 	enable_lighting = 0;
@@ -499,6 +497,21 @@ void load_global_options() {
 	char ini_path[POP_MAX_PATH];
 	if (!macos_copy_path(MACOS_SETTINGS, "SDLPoP.ini", ini_path, sizeof(ini_path))) return;
 	ini_load(ini_path, global_ini_callback); // global configuration
+}
+
+// The fixed normal-play rules profile (DOS_SAVE_V1): original levelset and
+// custom defaults; copy-protection and lighting disabled; no gameplay
+// enhancements except fix_quicksave_during_feather.
+void apply_fixed_gameplay_profile(void) {
+	memset(&fixes_saved, 0, sizeof(fixes_saved));
+	fixes_saved.fix_quicksave_during_feather = 1;
+	turn_fixes_and_enhancements_on_off(1);
+	use_custom_options = 0;
+	custom = &custom_defaults;
+	enable_copyprot = 0;
+#ifdef USE_LIGHTING
+	enable_lighting = 0;
+#endif
 }
 
 enum dos_version {

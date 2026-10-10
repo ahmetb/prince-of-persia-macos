@@ -11,32 +11,41 @@ CMakeFiles/PrinceOfPersia.dir/src/macos_app.m.o: \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stddef_wchar_t.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stddef_null.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/21/include/__stddef_offsetof.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdint.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdint.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int8_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int16_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int32_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int64_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uint16_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uint64_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_intptr_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_intmax_t.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uintmax_t.h \
+  /Users/ahmet.balkan/junk/prince.exe/src/game_commands.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/AppKit.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/TargetConditionals.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/appleapiopts.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int8_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int16_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int32_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_int64_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int8_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int16_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int32_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int64_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_intptr_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_endian.h \
@@ -158,14 +167,6 @@ CMakeFiles/PrinceOfPersia.dir/src/macos_app.m.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdlib.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/resource.h \
-  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdint.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdint.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uint16_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uint64_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_intmax_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uintmax_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h \
@@ -1278,6 +1279,13 @@ CMakeFiles/PrinceOfPersia.dir/src/macos_app.m.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSWritingToolsCoordinatorAnimationParameters.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSWritingToolsCoordinatorContext.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSWritingToolsCoordinator.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UniformTypeIdentifiers.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTDefines.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTTagClass.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTType.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTCoreTypes.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/UTAdditions.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/UniformTypeIdentifiers.framework/Headers/NSItemProvider+UTType.h \
   /Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2-build/include/SDL2/SDL.h \
   /Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2-build/include/SDL2/SDL_main.h \
   /Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2-build/include/SDL2/SDL_stdinc.h \
