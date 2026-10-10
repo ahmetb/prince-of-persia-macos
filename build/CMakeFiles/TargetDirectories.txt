@@ -1,5 +1,7 @@
 /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles/PrinceOfPersia.dir
 /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles/save_rejection_tests.dir
+/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles/save_persistence_tests.dir
+/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles/save_continuation_tests.dir
 /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles/test.dir
 /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles/edit_cache.dir
 /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles/rebuild_cache.dir

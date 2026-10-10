@@ -698,7 +698,7 @@ SaveResult game_snapshot_decode(const uint8_t *src, size_t length,
 
 static SaveResult validate_snapshot(const GameSnapshot *s, SaveError *error) {
 	const NativeExtension *n = &s->native;
-	if (s->base.current_level >= 15 && s->base.current_level != 15) { save_error_set(error, SEC_BASE, "current_level out of range"); return SAVE_INVALID_STATE; }
+	if (s->base.current_level > 15) { save_error_set(error, SEC_BASE, "current_level out of range"); return SAVE_INVALID_STATE; }
 	if (s->base.level.used_rooms > ROOMCOUNT) { save_error_set(error, SEC_BASE, "used_rooms out of range"); return SAVE_INVALID_STATE; }
 	for (int i = 0; i < ROOMCOUNT; ++i) {
 		const link_type *l = &s->base.level.roomlinks[i];
@@ -710,10 +710,13 @@ static SaveResult validate_snapshot(const GameSnapshot *s, SaveError *error) {
 	if (s->base.trobs_count < 0 || s->base.trobs_count > TROBS_MAX) { save_error_set(error, SEC_BASE, "trobs_count out of range"); return SAVE_INVALID_STATE; }
 	if ((short)n->current_sound < -1 || n->current_sound >= 58) { save_error_set(error, SEC_NATIVE, "current_sound out of range"); return SAVE_INVALID_STATE; }
 	if ((short)n->next_sound < -1 || n->next_sound >= 58) { save_error_set(error, SEC_NATIVE, "next_sound out of range"); return SAVE_INVALID_STATE; }
-	// Audio: active resource id domain (0..57 or -1).
+	// Audio: active resource id domain (0..57 or -1). Empty/inactive audio
+	// states remain valid, so OPL/MIDI topology is validated only while MIDI
+	// is actually playing.
 	if (s->audio.speaker.resource_id < -1 || s->audio.speaker.resource_id > 57) { save_error_set(error, SEC_AUDIO, "speaker resource out of range"); return SAVE_INVALID_STATE; }
 	if (s->audio.digi.resource_id < -1 || s->audio.digi.resource_id > 57) { save_error_set(error, SEC_AUDIO, "digi resource out of range"); return SAVE_INVALID_STATE; }
 	if (s->audio.midi.resource_id < -1 || s->audio.midi.resource_id > 57) { save_error_set(error, SEC_AUDIO, "midi resource out of range"); return SAVE_INVALID_STATE; }
+	if (!s->audio.midi.playing) return SAVE_OK;
 	if (s->audio.midi.num_tracks < 0 || s->audio.midi.num_tracks > POP_MIDI_MAX_TRACKS) {
 		save_error_set(error, SEC_AUDIO, "midi track count out of range"); return SAVE_INVALID_STATE;
 	}

@@ -153,6 +153,32 @@ save_rejection_tests/fast:
 .PHONY : save_rejection_tests/fast
 
 #=============================================================================
+# Target rules for targets named save_persistence_tests
+
+# Build rule for target.
+save_persistence_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 save_persistence_tests
+.PHONY : save_persistence_tests
+
+# fast build rule for target.
+save_persistence_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_persistence_tests.dir/build.make CMakeFiles/save_persistence_tests.dir/build
+.PHONY : save_persistence_tests/fast
+
+#=============================================================================
+# Target rules for targets named save_continuation_tests
+
+# Build rule for target.
+save_continuation_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 save_continuation_tests
+.PHONY : save_continuation_tests
+
+# fast build rule for target.
+save_continuation_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_continuation_tests.dir/build.make CMakeFiles/save_continuation_tests.dir/build
+.PHONY : save_continuation_tests/fast
+
+#=============================================================================
 # Target rules for targets named sdl_headers_copy
 
 # Build rule for target.
@@ -224,6 +250,8 @@ src/macos_app.o: src/macos_app.m.o
 src/macos_app.m.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrinceOfPersia.dir/build.make CMakeFiles/PrinceOfPersia.dir/src/macos_app.m.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_rejection_tests.dir/build.make CMakeFiles/save_rejection_tests.dir/src/macos_app.m.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_persistence_tests.dir/build.make CMakeFiles/save_persistence_tests.dir/src/macos_app.m.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_continuation_tests.dir/build.make CMakeFiles/save_continuation_tests.dir/src/macos_app.m.o
 .PHONY : src/macos_app.m.o
 
 src/main.o: src/main.c.o
@@ -249,6 +277,38 @@ src/main.s: src/main.c.s
 src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrinceOfPersia.dir/build.make CMakeFiles/PrinceOfPersia.dir/src/main.c.s
 .PHONY : src/main.c.s
+
+tests/save_continuation_tests.o: tests/save_continuation_tests.c.o
+.PHONY : tests/save_continuation_tests.o
+
+# target to build an object file
+tests/save_continuation_tests.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_continuation_tests.dir/build.make CMakeFiles/save_continuation_tests.dir/tests/save_continuation_tests.c.o
+.PHONY : tests/save_continuation_tests.c.o
+
+tests/save_continuation_tests.i: tests/save_continuation_tests.c.i
+.PHONY : tests/save_continuation_tests.i
+
+# target to preprocess a source file
+tests/save_continuation_tests.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_continuation_tests.dir/build.make CMakeFiles/save_continuation_tests.dir/tests/save_continuation_tests.c.i
+.PHONY : tests/save_continuation_tests.c.i
+
+tests/save_continuation_tests.s: tests/save_continuation_tests.c.s
+.PHONY : tests/save_continuation_tests.s
+
+# target to generate assembly for a file
+tests/save_continuation_tests.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_continuation_tests.dir/build.make CMakeFiles/save_continuation_tests.dir/tests/save_continuation_tests.c.s
+.PHONY : tests/save_continuation_tests.c.s
+
+tests/save_persistence_tests.o: tests/save_persistence_tests.m.o
+.PHONY : tests/save_persistence_tests.o
+
+# target to build an object file
+tests/save_persistence_tests.m.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_persistence_tests.dir/build.make CMakeFiles/save_persistence_tests.dir/tests/save_persistence_tests.m.o
+.PHONY : tests/save_persistence_tests.m.o
 
 tests/save_rejection_tests.o: tests/save_rejection_tests.c.o
 .PHONY : tests/save_rejection_tests.o
@@ -289,11 +349,17 @@ help:
 	@echo "... SDL2-static"
 	@echo "... SDL2_image"
 	@echo "... pop_core"
+	@echo "... save_continuation_tests"
+	@echo "... save_persistence_tests"
 	@echo "... save_rejection_tests"
 	@echo "... src/macos_app.o"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... tests/save_continuation_tests.o"
+	@echo "... tests/save_continuation_tests.i"
+	@echo "... tests/save_continuation_tests.s"
+	@echo "... tests/save_persistence_tests.o"
 	@echo "... tests/save_rejection_tests.o"
 	@echo "... tests/save_rejection_tests.i"
 	@echo "... tests/save_rejection_tests.s"

@@ -198,3 +198,5 @@ function(add_pop_test name source)
 endfunction()
 
 add_pop_test(save_rejection_tests "tests/save_rejection_tests.c")
+add_pop_test(save_persistence_tests "tests/save_persistence_tests.m")
+add_pop_test(save_continuation_tests "tests/save_continuation_tests.c")

@@ -248,7 +248,7 @@ typedef struct GameSnapshot {
 	byte frame[POP_FRAME_RGB_BYTES];
 } GameSnapshot;
 
-// Prepared resources owned entirely by the continuation (no live globals).
+// Prepared/commit level graphics (implemented over seg000.c load_lev_spr).
 typedef struct PreparedLevelGraphics {
 	int level;
 	chtab_type *env_chtab;
@@ -260,6 +260,9 @@ typedef struct PreparedLevelGraphics {
 	bool has_env_pal;
 	bool has_wall_pal;
 } PreparedLevelGraphics;
+
+SaveResult prepare_level_graphics(int level, PreparedLevelGraphics *out, SaveError *error);
+void commit_level_graphics(const PreparedLevelGraphics *prepared);
 
 typedef struct PreparedAudioState {
 	// Prepared speaker/digi/midi continuation resources.

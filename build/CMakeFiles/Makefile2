@@ -65,6 +65,8 @@ CMAKE_BINARY_DIR = /Users/ahmet.balkan/junk/prince.exe/build
 # The main recursive "all" target.
 all: CMakeFiles/PrinceOfPersia.dir/all
 all: CMakeFiles/save_rejection_tests.dir/all
+all: CMakeFiles/save_persistence_tests.dir/all
+all: CMakeFiles/save_continuation_tests.dir/all
 all: _deps/sdl2-build/all
 all: _deps/sdl2_image-build/all
 all: src/all
@@ -73,6 +75,8 @@ all: src/all
 # The main recursive "codegen" target.
 codegen: CMakeFiles/PrinceOfPersia.dir/codegen
 codegen: CMakeFiles/save_rejection_tests.dir/codegen
+codegen: CMakeFiles/save_persistence_tests.dir/codegen
+codegen: CMakeFiles/save_continuation_tests.dir/codegen
 codegen: _deps/sdl2-build/codegen
 codegen: _deps/sdl2_image-build/codegen
 codegen: src/codegen
@@ -87,6 +91,8 @@ preinstall: src/preinstall
 # The main recursive "clean" target.
 clean: CMakeFiles/PrinceOfPersia.dir/clean
 clean: CMakeFiles/save_rejection_tests.dir/clean
+clean: CMakeFiles/save_persistence_tests.dir/clean
+clean: CMakeFiles/save_continuation_tests.dir/clean
 clean: _deps/sdl2-build/clean
 clean: _deps/sdl2_image-build/clean
 clean: src/clean
@@ -165,7 +171,7 @@ CMakeFiles/PrinceOfPersia.dir/all: src/CMakeFiles/pop_core.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/PrinceOfPersia.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 99
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 98
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PrinceOfPersia.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 0
 .PHONY : CMakeFiles/PrinceOfPersia.dir/rule
@@ -199,7 +205,7 @@ CMakeFiles/save_rejection_tests.dir/all: src/CMakeFiles/pop_core.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/save_rejection_tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 100
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 99
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/save_rejection_tests.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 0
 .PHONY : CMakeFiles/save_rejection_tests.dir/rule
@@ -218,6 +224,74 @@ CMakeFiles/save_rejection_tests.dir/codegen:
 CMakeFiles/save_rejection_tests.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_rejection_tests.dir/build.make CMakeFiles/save_rejection_tests.dir/clean
 .PHONY : CMakeFiles/save_rejection_tests.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/save_persistence_tests.dir
+
+# All Build rule for target.
+CMakeFiles/save_persistence_tests.dir/all: _deps/sdl2-build/CMakeFiles/SDL2-static.dir/all
+CMakeFiles/save_persistence_tests.dir/all: _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/all
+CMakeFiles/save_persistence_tests.dir/all: src/CMakeFiles/pop_core.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_persistence_tests.dir/build.make CMakeFiles/save_persistence_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_persistence_tests.dir/build.make CMakeFiles/save_persistence_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=74 "Built target save_persistence_tests"
+.PHONY : CMakeFiles/save_persistence_tests.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/save_persistence_tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 99
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/save_persistence_tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 0
+.PHONY : CMakeFiles/save_persistence_tests.dir/rule
+
+# Convenience name for target.
+save_persistence_tests: CMakeFiles/save_persistence_tests.dir/rule
+.PHONY : save_persistence_tests
+
+# codegen rule for target.
+CMakeFiles/save_persistence_tests.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_persistence_tests.dir/build.make CMakeFiles/save_persistence_tests.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=74 "Finished codegen for target save_persistence_tests"
+.PHONY : CMakeFiles/save_persistence_tests.dir/codegen
+
+# clean rule for target.
+CMakeFiles/save_persistence_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_persistence_tests.dir/build.make CMakeFiles/save_persistence_tests.dir/clean
+.PHONY : CMakeFiles/save_persistence_tests.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/save_continuation_tests.dir
+
+# All Build rule for target.
+CMakeFiles/save_continuation_tests.dir/all: _deps/sdl2-build/CMakeFiles/SDL2-static.dir/all
+CMakeFiles/save_continuation_tests.dir/all: _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/all
+CMakeFiles/save_continuation_tests.dir/all: src/CMakeFiles/pop_core.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_continuation_tests.dir/build.make CMakeFiles/save_continuation_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_continuation_tests.dir/build.make CMakeFiles/save_continuation_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num= "Built target save_continuation_tests"
+.PHONY : CMakeFiles/save_continuation_tests.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/save_continuation_tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 98
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/save_continuation_tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 0
+.PHONY : CMakeFiles/save_continuation_tests.dir/rule
+
+# Convenience name for target.
+save_continuation_tests: CMakeFiles/save_continuation_tests.dir/rule
+.PHONY : save_continuation_tests
+
+# codegen rule for target.
+CMakeFiles/save_continuation_tests.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_continuation_tests.dir/build.make CMakeFiles/save_continuation_tests.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num= "Finished codegen for target save_continuation_tests"
+.PHONY : CMakeFiles/save_continuation_tests.dir/codegen
+
+# clean rule for target.
+CMakeFiles/save_continuation_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_continuation_tests.dir/build.make CMakeFiles/save_continuation_tests.dir/clean
+.PHONY : CMakeFiles/save_continuation_tests.dir/clean
 
 #=============================================================================
 # Target rules for target _deps/sdl2-build/CMakeFiles/sdl_headers_copy.dir
@@ -258,12 +332,12 @@ _deps/sdl2-build/CMakeFiles/sdl_headers_copy.dir/clean:
 _deps/sdl2-build/CMakeFiles/SDL2-static.dir/all: _deps/sdl2-build/CMakeFiles/sdl_headers_copy.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/sdl2-build/CMakeFiles/SDL2-static.dir/build.make _deps/sdl2-build/CMakeFiles/SDL2-static.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/sdl2-build/CMakeFiles/SDL2-static.dir/build.make _deps/sdl2-build/CMakeFiles/SDL2-static.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60 "Built target SDL2-static"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59 "Built target SDL2-static"
 .PHONY : _deps/sdl2-build/CMakeFiles/SDL2-static.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/sdl2-build/CMakeFiles/SDL2-static.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 85
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 84
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/sdl2-build/CMakeFiles/SDL2-static.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 0
 .PHONY : _deps/sdl2-build/CMakeFiles/SDL2-static.dir/rule
@@ -275,7 +349,7 @@ SDL2-static: _deps/sdl2-build/CMakeFiles/SDL2-static.dir/rule
 # codegen rule for target.
 _deps/sdl2-build/CMakeFiles/SDL2-static.dir/codegen: _deps/sdl2-build/CMakeFiles/sdl_headers_copy.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/sdl2-build/CMakeFiles/SDL2-static.dir/build.make _deps/sdl2-build/CMakeFiles/SDL2-static.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60 "Finished codegen for target SDL2-static"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59 "Finished codegen for target SDL2-static"
 .PHONY : _deps/sdl2-build/CMakeFiles/SDL2-static.dir/codegen
 
 # clean rule for target.
@@ -322,12 +396,12 @@ _deps/sdl2-build/CMakeFiles/uninstall.dir/clean:
 _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/all: _deps/sdl2-build/CMakeFiles/SDL2-static.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/build.make _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/build.make _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=61,62,63,64,65,66,67 "Built target SDL2_image"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=60,61,62,63,64,65 "Built target SDL2_image"
 .PHONY : _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 92
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 90
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 0
 .PHONY : _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/rule
@@ -339,7 +413,7 @@ SDL2_image: _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/rule
 # codegen rule for target.
 _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/build.make _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=61,62,63,64,65,66,67 "Finished codegen for target SDL2_image"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=60,61,62,63,64,65 "Finished codegen for target SDL2_image"
 .PHONY : _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/codegen
 
 # clean rule for target.
@@ -355,12 +429,12 @@ src/CMakeFiles/pop_core.dir/all: _deps/sdl2-build/CMakeFiles/SDL2-static.dir/all
 src/CMakeFiles/pop_core.dir/all: _deps/sdl2_image-build/CMakeFiles/SDL2_image.dir/all
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=68,69,70,71,72,73,74 "Built target pop_core"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=66,67,68,69,70,71,72,73 "Built target pop_core"
 .PHONY : src/CMakeFiles/pop_core.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/pop_core.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 99
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 98
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/pop_core.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/pop_core.dir/rule
@@ -372,7 +446,7 @@ pop_core: src/CMakeFiles/pop_core.dir/rule
 # codegen rule for target.
 src/CMakeFiles/pop_core.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=68,69,70,71,72,73,74 "Finished codegen for target pop_core"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ahmet.balkan/junk/prince.exe/build/CMakeFiles --progress-num=66,67,68,69,70,71,72,73 "Finished codegen for target pop_core"
 .PHONY : src/CMakeFiles/pop_core.dir/codegen
 
 # clean rule for target.

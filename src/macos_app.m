@@ -842,23 +842,16 @@ void macos_run_game_panel(uint64_t generation, bool is_save, void (*pump)(void))
 		panel.directoryURL = [NSURL fileURLWithPath:@(saves)];
 	}
 
-	NSString *chosen = nil;
-	bool cancelled = true;
-	NSModalSession session = [NSApp beginModalSessionForWindow:panel];
-	for (;;) {
-		NSModalResponse response = [NSApp runModalSession:session];
-		if (response == NSModalResponseOK) {
-			chosen = panel.URL.path;
-			cancelled = false;
-			break;
-		}
-		if (response == NSModalResponseCancel) {
-			cancelled = true;
-			break;
-		}
-		if (pump != NULL) pump();
-	}
-	[NSApp endModalSession:session];
+	// Make the cursor visible and clickable while the panel is up, then run the
+	// panel as an app-modal dialog (Cocoa's own run loop keeps it responsive;
+	// the game frame stays frozen behind it).
+	SDL_ShowCursor(SDL_ENABLE);
+	NSModalResponse response = [panel runModal];
 
+	bool cancelled = (response != NSModalResponseOK);
+	NSString *chosen = nil;
+	if (!cancelled) {
+		chosen = panel.URL.path;
+	}
 	game_complete_panel(generation, cancelled ? NULL : chosen.UTF8String, cancelled);
 }

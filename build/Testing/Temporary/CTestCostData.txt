@@ -1,2 +1,4 @@
-save_rejection_tests 2 0.107679
+save_rejection_tests 6 0.0372174
+save_persistence_tests 2 0.103218
+save_continuation_tests 3 0.0647129
 ---
