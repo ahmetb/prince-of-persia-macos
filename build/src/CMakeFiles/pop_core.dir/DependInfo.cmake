@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/ahmet.balkan/junk/prince.exe/src/data.c" "src/CMakeFiles/pop_core.dir/data.c.o" "gcc" "src/CMakeFiles/pop_core.dir/data.c.o.d"
+  "/Users/ahmet.balkan/junk/prince.exe/src/game_snapshot.c" "src/CMakeFiles/pop_core.dir/game_snapshot.c.o" "gcc" "src/CMakeFiles/pop_core.dir/game_snapshot.c.o.d"
   "/Users/ahmet.balkan/junk/prince.exe/src/lighting.c" "src/CMakeFiles/pop_core.dir/lighting.c.o" "gcc" "src/CMakeFiles/pop_core.dir/lighting.c.o.d"
   "/Users/ahmet.balkan/junk/prince.exe/src/menu.c" "src/CMakeFiles/pop_core.dir/menu.c.o" "gcc" "src/CMakeFiles/pop_core.dir/menu.c.o.d"
   "/Users/ahmet.balkan/junk/prince.exe/src/midi.c" "src/CMakeFiles/pop_core.dir/midi.c.o" "gcc" "src/CMakeFiles/pop_core.dir/midi.c.o.d"

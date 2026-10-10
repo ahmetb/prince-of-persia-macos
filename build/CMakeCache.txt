@@ -17,6 +17,9 @@
 //Build the library as a shared library
 BUILD_SHARED_LIBS:BOOL=OFF
 
+//Build the test suite
+BUILD_TESTING:BOOL=ON
+
 //Path to a program.
 CCACHE_BINARY:FILEPATH=CCACHE_BINARY-NOTFOUND
 
@@ -332,6 +335,9 @@ PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/opt/homebrew/bin/pkg-config
+
+//Path to copied original DAT assets
+POP_TEST_ASSETS:PATH=
 
 //Value Computed by CMake
 PrinceOfPersia_BINARY_DIR:STATIC=/Users/ahmet.balkan/junk/prince.exe/build

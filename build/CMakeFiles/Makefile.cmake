@@ -117,6 +117,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/PrinceOfPersia.dir/DependInfo.cmake"
+  "CMakeFiles/save_rejection_tests.dir/DependInfo.cmake"
   "_deps/sdl2-build/CMakeFiles/sdl_headers_copy.dir/DependInfo.cmake"
   "_deps/sdl2-build/CMakeFiles/SDL2-static.dir/DependInfo.cmake"
   "_deps/sdl2-build/CMakeFiles/uninstall.dir/DependInfo.cmake"

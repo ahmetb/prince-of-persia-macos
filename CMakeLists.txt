@@ -152,3 +152,47 @@ add_custom_command(TARGET ${APP_EXECUTABLE_NAME} POST_BUILD
             "${APP_BUNDLE_DIR}"
     COMMENT "Ad-hoc signing app bundle"
 )
+
+# ---------------------------------------------------------------------------
+# Tests
+# ---------------------------------------------------------------------------
+option(BUILD_TESTING "Build the test suite" ON)
+if(BUILD_TESTING)
+    enable_testing()
+endif()
+
+# POP_TEST_ASSETS may be supplied at configure time to run asset-dependent
+# integration tests against the consented installation; otherwise those cases
+# are omitted with a visible configuration status.
+set(POP_TEST_ASSETS "$ENV{POP_TEST_ASSETS}" CACHE PATH "Path to copied original DAT assets")
+
+function(add_pop_test name source)
+    add_executable(${name} ${source} src/macos_app.m)
+    target_link_libraries(${name} PRIVATE
+        pop_core
+        SDL2::SDL2-static
+        SDL2_image::SDL2_image-static
+    )
+    # macOS-specific frameworks, mirroring the app target.
+    target_link_libraries(${name} PRIVATE
+        "-framework AppKit"
+        "-framework Foundation"
+        "-framework CoreAudio"
+        "-framework CoreHaptics"
+        "-framework IOKit"
+        "-framework GameController"
+        "-framework CoreGraphics"
+        "-framework Metal"
+        "-framework QuartzCore"
+        "-framework AudioToolbox"
+        "-framework CoreServices"
+        "-framework CoreVideo"
+        "-framework Carbon"
+        "-framework AudioUnit"
+    )
+    set_source_files_properties(src/macos_app.m PROPERTIES COMPILE_FLAGS "-fobjc-arc")
+    target_include_directories(${name} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    add_test(NAME ${name} COMMAND ${name})
+endfunction()
+
+add_pop_test(save_rejection_tests "tests/save_rejection_tests.c")

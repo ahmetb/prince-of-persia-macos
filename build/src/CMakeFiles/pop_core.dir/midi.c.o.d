@@ -221,4 +221,7 @@ src/CMakeFiles/pop_core.dir/midi.c.o: \
   /Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-src/include/SDL_image.h \
   /Users/ahmet.balkan/junk/prince.exe/src/proto.h \
   /Users/ahmet.balkan/junk/prince.exe/src/data.h \
-  /Users/ahmet.balkan/junk/prince.exe/src/opl3.h
+  /Users/ahmet.balkan/junk/prince.exe/src/opl3.h \
+  /Users/ahmet.balkan/junk/prince.exe/src/midi_snapshot.h \
+  /Users/ahmet.balkan/junk/prince.exe/src/game_snapshot.h \
+  /Users/ahmet.balkan/junk/prince.exe/src/game_state_fields.def

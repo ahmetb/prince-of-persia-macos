@@ -20,6 +20,7 @@ The authors of this program may be contacted at https://forum.princed.org
 
 #include "common.h"
 #include "macos_app.h"
+#include "game_snapshot.h"
 #include <setjmp.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -257,114 +258,11 @@ typedef int process_func_type(void* data, size_t data_size);
 
 int quick_process(process_func_type process_func) {
 	int ok = 1;
-#define process(x) ok = ok && process_func(&(x), sizeof(x))
-	// level
-#ifdef USE_DEBUG_CHEATS
-	// Don't load the level if the user holds either Shift key while pressing F9.
-	if (debug_cheats_enabled && (key_states[SDL_SCANCODE_LSHIFT] & KEYSTATE_HELD || key_states[SDL_SCANCODE_RSHIFT] & KEYSTATE_HELD)) {
-		fseek(quick_fp, sizeof(level), SEEK_CUR);
-	} else
-#endif
-	{
-		process(level);
-	}
-	process(checkpoint);
-	process(upside_down);
-	process(drawn_room);
-	process(current_level);
-	process(next_level);
-	process(mobs_count);
-	process(mobs);
-	process(trobs_count);
-	process(trobs);
-	process(leveldoor_open);
-	//process(exit_room_timer);
-	// kid
-	process(Kid);
-	process(hitp_curr);
-	process(hitp_max);
-	process(hitp_beg_lev);
-	process(grab_timer);
-	process(holding_sword);
-	process(united_with_shadow);
-	process(have_sword);
-	/*process(ctrl1_forward);
-	process(ctrl1_backward);
-	process(ctrl1_up);
-	process(ctrl1_down);
-	process(ctrl1_shift2);*/
-	process(kid_sword_strike);
-	process(pickup_obj_type);
-	process(offguard);
-	// guard
-	process(Guard);
-	process(Char);
-	process(Opp);
-	process(guardhp_curr);
-	process(guardhp_max);
-	process(demo_index);
-	process(demo_time);
-	process(curr_guard_color);
-	process(guard_notice_timer);
-	process(guard_skill);
-	process(shadow_initialized);
-	process(guard_refrac);
-	process(justblocked);
-	process(droppedout);
-	// collision
-	process(curr_row_coll_room);
-	process(curr_row_coll_flags);
-	process(below_row_coll_room);
-	process(below_row_coll_flags);
-	process(above_row_coll_room);
-	process(above_row_coll_flags);
-	process(prev_collision_row);
-	// flash
-	process(flash_color);
-	process(flash_time);
-	// sounds
-	process(need_level1_music);
-	process(is_screaming);
-	process(is_feather_fall);
-	process(last_loose_sound);
-	//process(next_sound);
-	//process(current_sound);
-	// random
-	process(random_seed);
-	// remaining time
-	process(rem_min);
-	process(rem_tick);
-	// saved controls
-	process(control_x);
-	process(control_y);
-	process(control_shift);
-	process(control_forward);
-	process(control_backward);
-	process(control_up);
-	process(control_down);
-	process(control_shift2);
-	process(ctrl1_forward);
-	process(ctrl1_backward);
-	process(ctrl1_up);
-	process(ctrl1_down);
-	process(ctrl1_shift2);
-	// replay recording state
-#ifdef USE_REPLAY
-	process(curr_tick);
-#endif
-#ifdef USE_COLORED_TORCHES
-	process(torch_colors);
-#endif
-#ifdef USE_SUPER_HIGH_JUMP
-	process(super_jump_fall);
-	process(super_jump_timer);
-	process(super_jump_room);
-	process(super_jump_col);
-	process(super_jump_row);
-#endif
-	process(is_guard_notice);
-	process(can_guard_see_kid);
-#undef process
+	// Field stream defined by game_state_fields.def (same list used by the
+	// native codec), preserving the exact legacy replay field order.
+#define POP_BASE_FIELD(name, c_type, kind, decl) ok = ok && process_func(&(name), sizeof(name));
+#include "game_state_fields.def"
+#undef POP_BASE_FIELD
 	return ok;
 }
 
@@ -1700,6 +1598,96 @@ void load_more_opt_graf(const char* filename) {
 }
 
 // seg000:148D
+
+// Level-graphics preparation for the native save codec. This loads sprite
+// and palette resources into candidate-owned storage without touching the
+// live chtab_addrs, current_level/next_level/curr_guard_color globals, or the
+// live palette; commit_level_graphics() installs them at a safe point.
+SaveResult prepare_level_graphics(int level, PreparedLevelGraphics *out, SaveError *error) {
+	memset(out, 0, sizeof(*out));
+	out->level = level;
+	short guardtype = custom->tbl_guard_type[level];
+	char filename[20];
+	snprintf(filename, sizeof(filename), "%s%s.DAT",
+		tbl_envir_gr[graphics_mode],
+		tbl_envir_ki[custom->tbl_level_type[level]]);
+
+	dat_type *env_dat = open_dat(filename, 'G');
+	out->env_chtab = load_sprites_from_file(200, 1 << 5, 1);
+	if (env_dat != NULL) {
+		dat_shpl_type area;
+		load_from_opendats_to_area(200, &area, sizeof(area), "pal");
+		area.palette.row_bits = 0x20;
+		if (out->env_chtab != NULL) {
+			for (short graf_index = 0; graf_index < 8; ++graf_index) {
+				load_one_optgraf(out->env_chtab, &area.palette, 1200,
+				                 optgraf_min[graf_index] - 1, optgraf_max[graf_index] - 1);
+			}
+		}
+		close_dat(env_dat);
+	}
+
+	if (guardtype != -1) {
+		dat_type *guard_dat = open_dat(tbl_guard_dat[guardtype], 'G');
+		out->guard_chtab = load_sprites_from_file(750, 1 << 8, 1);
+		if (guard_dat != NULL) close_dat(guard_dat);
+	}
+
+	dat_type *wall_dat = open_dat(filename, 'G');
+	out->envwall_chtab = load_sprites_from_file(360, 1 << 6, 1);
+	if (wall_dat != NULL) close_dat(wall_dat);
+
+	if (graphics_mode == gmMcgaVga && level_var_palettes != NULL) {
+		int level_color = custom->tbl_level_color[level];
+		if (level_color != 0) {
+			byte *env_pal = level_var_palettes + 0x30 * (level_color - 1);
+			byte *wall_pal = env_pal + 0x30 * custom->tbl_level_type[level];
+			memcpy(out->env_pal, env_pal, sizeof(out->env_pal));
+			memcpy(out->wall_pal, wall_pal, sizeof(out->wall_pal));
+			out->has_env_pal = true;
+			out->has_wall_pal = true;
+		}
+	}
+	out->curr_guard_color = 0;
+
+	if (out->env_chtab == NULL || out->envwall_chtab == NULL ||
+	    (guardtype != -1 && out->guard_chtab == NULL)) {
+		save_error_set(error, -1, "could not prepare level graphics");
+		return SAVE_PREPARE_FAILED;
+	}
+	return SAVE_OK;
+}
+
+// Installs prepared level graphics and the level-selection globals.
+void commit_level_graphics(const PreparedLevelGraphics *prepared) {
+	if (chtab_addrs[id_chtab_5_guard] != NULL) {
+		free_chtab(chtab_addrs[id_chtab_5_guard]);
+		chtab_addrs[id_chtab_5_guard] = NULL;
+	}
+	if (chtab_addrs[id_chtab_6_environment] != NULL) {
+		free_chtab(chtab_addrs[id_chtab_6_environment]);
+		chtab_addrs[id_chtab_6_environment] = NULL;
+	}
+	if (chtab_addrs[id_chtab_7_environmentwall] != NULL) {
+		free_chtab(chtab_addrs[id_chtab_7_environmentwall]);
+		chtab_addrs[id_chtab_7_environmentwall] = NULL;
+	}
+	chtab_addrs[id_chtab_5_guard] = prepared->guard_chtab;
+	chtab_addrs[id_chtab_6_environment] = prepared->env_chtab;
+	chtab_addrs[id_chtab_7_environmentwall] = prepared->envwall_chtab;
+	current_level = next_level = prepared->level;
+	curr_guard_color = prepared->curr_guard_color;
+
+	if (prepared->has_env_pal) {
+		set_pal_arr(0x50, 0x10, (rgb_type *)prepared->env_pal);
+		set_chtab_palette(chtab_addrs[id_chtab_6_environment], (byte *)prepared->env_pal, 0x10);
+	}
+	if (prepared->has_wall_pal) {
+		set_pal_arr(0x60, 0x10, (rgb_type *)prepared->wall_pal);
+		set_chtab_palette(chtab_addrs[id_chtab_7_environmentwall], (byte *)prepared->wall_pal, 0x10);
+	}
+}
+
 int do_paused() {
 #ifdef USE_REPLAY
 	if (replaying && skipping_replay) return 0;

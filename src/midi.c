@@ -28,6 +28,7 @@ CREDITS:
 
 #include "common.h"
 #include "opl3.h"
+#include "midi_snapshot.h"
 #include "math.h"
 
 #define MAX_MIDI_CHANNELS 16
@@ -43,6 +44,7 @@ CREDITS:
 extern short midi_playing; // seg009.c
 extern SDL_AudioSpec* digi_audiospec; // seg009.c
 extern int digi_unavailable; // seg009.c
+extern int playing_midi_id; // seg009.c
 
 static opl3_chip opl_chip;
 static void* instruments_data;
@@ -577,6 +579,7 @@ void midi_callback(void *userdata, Uint8 *stream, int len) {
 //				printf("midi_callback(): sound ended\n");
 				SDL_LockAudio();
 				midi_playing = 0;
+				playing_midi_id = -1;
 				free_parsed_midi(&parsed_midi);
 				SDL_UnlockAudio();
 				return;
@@ -610,6 +613,7 @@ void stop_midi() {
 //	SDL_PauseAudio(1);
 	SDL_LockAudio();
 	midi_playing = 0;
+	playing_midi_id = -1;
 	free_parsed_midi(&parsed_midi);
 	SDL_UnlockAudio();
 }
@@ -677,4 +681,296 @@ void play_midi_sound(sound_buffer_type* buffer) {
 	mixing_freq = digi_audiospec->freq;
 	midi_playing = 1;
 	SDL_PauseAudio(0);
+}
+
+// ---------------------------------------------------------------------------
+// Exact-state snapshot hooks (native .popsave audio continuation)
+// ---------------------------------------------------------------------------
+
+// Prepared continuation owned by this module; installed at commit.
+static parsed_midi_type prepared_parsed_midi;
+static bool prepared_midi_valid = false;
+bool midi_prepared_is_valid(void) { return prepared_midi_valid; }
+
+extern int playing_midi_id;
+
+static int slot_index_of(const opl3_chip *chip, const opl3_slot *slot) {
+	if (slot == NULL) return -1;
+	ptrdiff_t d = slot - chip->slot;
+	if (d < 0 || d >= 36) return -1;
+	return (int)d;
+}
+static int channel_index_of(const opl3_chip *chip, const opl3_channel *ch) {
+	if (ch == NULL) return -1;
+	ptrdiff_t d = ch - chip->channel;
+	if (d < 0 || d >= 18) return -1;
+	return (int)d;
+}
+
+static void opl_capture(const opl3_chip *chip, SerialOplChip *out) {
+	memset(out, 0, sizeof(*out));
+	out->timer = chip->timer;
+	out->newm = chip->newm; out->nts = chip->nts;
+	out->rhy = chip->rhy; out->vibpos = chip->vibpos; out->vibshift = chip->vibshift;
+	out->tremolo = chip->tremolo; out->tremolopos = chip->tremolopos; out->tremoloshift = chip->tremoloshift;
+	out->noise = chip->noise;
+	out->zeromod = chip->zeromod;
+	out->mixbuff[0] = chip->mixbuff[0]; out->mixbuff[1] = chip->mixbuff[1];
+	out->rateratio = chip->rateratio; out->samplecnt = chip->samplecnt;
+	out->oldsamples[0] = chip->oldsamples[0]; out->oldsamples[1] = chip->oldsamples[1];
+	out->samples[0] = chip->samples[0]; out->samples[1] = chip->samples[1];
+	out->writebuf_samplecnt = chip->writebuf_samplecnt;
+	out->writebuf_cur = chip->writebuf_cur; out->writebuf_last = chip->writebuf_last;
+	out->writebuf_lasttime = chip->writebuf_lasttime;
+	for (int i = 0; i < OPL_WRITEBUF_SIZE; ++i) {
+		out->writebuf[i].time = chip->writebuf[i].time;
+		out->writebuf[i].reg = chip->writebuf[i].reg;
+		out->writebuf[i].data = chip->writebuf[i].data;
+	}
+	for (int i = 0; i < 36; ++i) {
+		const opl3_slot *s = &chip->slot[i];
+		SerialOplSlot *o = &out->slot[i];
+		o->channel_index = (uint8_t)channel_index_of(chip, s->channel);
+		if (s->mod == (Bit16s*)&chip->zeromod) {
+			o->mod_kind = OPL_REF_ZEROMOD; o->mod_index = 0;
+		} else {
+			int found = -1, kind = -1;
+			for (int k = 0; k < 36; ++k) {
+				if (s->mod == &chip->slot[k].fbmod) { found = k; kind = OPL_REF_SLOT_FBMOD; break; }
+				if (s->mod == &chip->slot[k].out) { found = k; kind = OPL_REF_SLOT_OUT; break; }
+			}
+			o->mod_kind = (kind < 0) ? OPL_REF_ZEROMOD : (uint8_t)kind;
+			o->mod_index = (found < 0) ? 0 : (uint8_t)found;
+		}
+		o->trem_kind = (s->trem == &chip->tremolo) ? 0 : 1;
+		o->out = s->out;
+		o->fbmod = s->fbmod;
+		o->prout = s->prout;
+		o->eg_rout = s->eg_rout;
+		o->eg_out = s->eg_out;
+		o->eg_inc = s->eg_inc;
+		o->eg_gen = s->eg_gen;
+		o->eg_rate = s->eg_rate;
+		o->eg_ksl = s->eg_ksl;
+		o->reg_vib = s->reg_vib;
+		o->reg_type = s->reg_type;
+		o->reg_ksr = s->reg_ksr;
+		o->reg_mult = s->reg_mult;
+		o->reg_ksl = s->reg_ksl;
+		o->reg_tl = s->reg_tl;
+		o->reg_ar = s->reg_ar;
+		o->reg_dr = s->reg_dr;
+		o->reg_sl = s->reg_sl;
+		o->reg_rr = s->reg_rr;
+		o->reg_wf = s->reg_wf;
+		o->key = s->key;
+		o->pg_phase = s->pg_phase;
+		o->timer = s->timer;
+	}
+	for (int i = 0; i < 18; ++i) {
+		const opl3_channel *ch = &chip->channel[i];
+		SerialOplChannel *o = &out->channel[i];
+		o->slot0 = (uint16_t)slot_index_of(chip, ch->slots[0]);
+		o->slot1 = (uint16_t)slot_index_of(chip, ch->slots[1]);
+		o->pair = (int16_t)channel_index_of(chip, ch->pair);
+		for (int k = 0; k < 4; ++k) {
+			void *p = (void*)ch->out[k];
+			if (p == NULL || p == (void*)&chip->zeromod) {
+				o->out_kind[k] = OPL_REF_ZEROMOD; o->out_index[k] = 0;
+			} else {
+				int found = -1;
+				for (int j = 0; j < 36; ++j) {
+					if ((void*)(&chip->slot[j].out) == p) { found = j; break; }
+				}
+				if (found >= 0) { o->out_kind[k] = OPL_REF_SLOT_OUT; o->out_index[k] = (uint8_t)found; }
+				else { o->out_kind[k] = OPL_REF_ZEROMOD; o->out_index[k] = 0; }
+			}
+		}
+		o->chtype = ch->chtype;
+		o->f_num = ch->f_num;
+		o->block = ch->block; o->fb = ch->fb; o->con = ch->con;
+		o->alg = ch->alg; o->ksv = ch->ksv;
+		o->cha = ch->cha; o->chb = ch->chb;
+	}
+}
+
+static void opl_install(const SerialOplChip *src, opl3_chip *chip, int samplerate) {
+	OPL3_Reset(chip, (Bit32u)samplerate);
+	chip->timer = src->timer;
+	chip->newm = src->newm; chip->nts = src->nts;
+	chip->rhy = src->rhy; chip->vibpos = src->vibpos; chip->vibshift = src->vibshift;
+	chip->tremolo = src->tremolo; chip->tremolopos = src->tremolopos; chip->tremoloshift = src->tremoloshift;
+	chip->noise = src->noise;
+	chip->zeromod = src->zeromod;
+	chip->mixbuff[0] = src->mixbuff[0]; chip->mixbuff[1] = src->mixbuff[1];
+	chip->rateratio = src->rateratio; chip->samplecnt = src->samplecnt;
+	chip->oldsamples[0] = src->oldsamples[0]; chip->oldsamples[1] = src->oldsamples[1];
+	chip->samples[0] = src->samples[0]; chip->samples[1] = src->samples[1];
+	chip->writebuf_samplecnt = src->writebuf_samplecnt;
+	chip->writebuf_cur = src->writebuf_cur; chip->writebuf_last = src->writebuf_last;
+	chip->writebuf_lasttime = src->writebuf_lasttime;
+	for (int i = 0; i < OPL_WRITEBUF_SIZE; ++i) {
+		chip->writebuf[i].time = src->writebuf[i].time;
+		chip->writebuf[i].reg = src->writebuf[i].reg;
+		chip->writebuf[i].data = src->writebuf[i].data;
+	}
+	for (int i = 0; i < 36; ++i) {
+		opl3_slot *s = &chip->slot[i];
+		const SerialOplSlot *o = &src->slot[i];
+		s->channel = &chip->channel[o->channel_index];
+		s->chip = chip;
+		switch (o->mod_kind) {
+			case OPL_REF_SLOT_FBMOD: s->mod = &chip->slot[o->mod_index].fbmod; break;
+			case OPL_REF_SLOT_OUT: s->mod = &chip->slot[o->mod_index].out; break;
+			default: s->mod = &chip->zeromod; break;
+		}
+		s->trem = (o->trem_kind == 0) ? &chip->tremolo : (Bit8u*)&chip->zeromod;
+		s->out = o->out; s->fbmod = o->fbmod; s->prout = o->prout;
+		s->eg_rout = o->eg_rout; s->eg_out = o->eg_out;
+		s->eg_inc = o->eg_inc; s->eg_gen = o->eg_gen; s->eg_rate = o->eg_rate; s->eg_ksl = o->eg_ksl;
+		s->reg_vib = o->reg_vib; s->reg_type = o->reg_type; s->reg_ksr = o->reg_ksr; s->reg_mult = o->reg_mult;
+		s->reg_ksl = o->reg_ksl; s->reg_tl = o->reg_tl; s->reg_ar = o->reg_ar; s->reg_dr = o->reg_dr;
+		s->reg_sl = o->reg_sl; s->reg_rr = o->reg_rr; s->reg_wf = o->reg_wf; s->key = o->key;
+		s->pg_phase = o->pg_phase; s->timer = o->timer;
+	}
+	for (int i = 0; i < 18; ++i) {
+		opl3_channel *ch = &chip->channel[i];
+		const SerialOplChannel *o = &src->channel[i];
+		ch->slots[0] = &chip->slot[o->slot0];
+		ch->slots[1] = &chip->slot[o->slot1];
+		ch->chip = chip;
+		ch->pair = (o->pair >= 0) ? &chip->channel[o->pair] : NULL;
+		for (int k = 0; k < 4; ++k) {
+			ch->out[k] = (o->out_kind[k] == OPL_REF_SLOT_OUT) ? &chip->slot[o->out_index[k]].out : &chip->zeromod;
+		}
+		ch->chtype = o->chtype;
+		ch->f_num = o->f_num;
+		ch->block = o->block; ch->fb = o->fb; ch->con = o->con;
+		ch->alg = o->alg; ch->ksv = o->ksv;
+		ch->cha = o->cha; ch->chb = o->chb;
+	}
+}
+
+void midi_snapshot_capture(MidiAudioState *out) {
+	memset(out, 0, sizeof(*out));
+	out->resource_id = (int16_t)playing_midi_id;
+	out->playing = (uint8_t)(midi_playing != 0);
+	out->num_tracks = (int16_t)num_midi_tracks;
+	for (int i = 0; i < num_midi_tracks && i < POP_MIDI_MAX_TRACKS; ++i) {
+		out->tracks[i].event_index = midi_tracks[i].event_index;
+		out->tracks[i].next_pause_tick = midi_tracks[i].next_pause_tick;
+	}
+	out->current_pos = midi_current_pos;
+	out->current_pos_fract = midi_current_pos_fract_part;
+	out->ticks_to_next_pause = ticks_to_next_pause;
+	out->us_per_beat = us_per_beat;
+	out->ticks_per_beat = ticks_per_beat;
+	out->mixing_freq = mixing_freq;
+	out->semitones_higher = midi_semitones_higher;
+	out->tempo_modifier = current_midi_tempo_modifier;
+	for (int i = 0; i < MAX_MIDI_CHANNELS; ++i) out->channel_instrument[i] = (uint8_t)channel_instrument[i];
+	for (int i = 0; i < MAX_OPL_VOICES; ++i) {
+		out->voice_note[i] = voice_note[i];
+		out->voice_instrument[i] = (uint8_t)voice_instrument[i];
+		out->voice_channel[i] = (uint8_t)voice_channel[i];
+	}
+	out->last_used_voice = (int16_t)last_used_voice;
+	opl_capture(&opl_chip, &out->opl);
+}
+
+SaveResult midi_snapshot_prepare(const MidiAudioState *src, SaveError *error) {
+	prepared_midi_valid = false;
+	if (prepared_parsed_midi.tracks != NULL) {
+		free_parsed_midi(&prepared_parsed_midi);
+	}
+	if (!src->playing) {
+		// Empty/inactive MIDI state is always valid.
+		return SAVE_OK;
+	}
+	if (src->resource_id < 0 || src->resource_id >= 58 || sound_pointers[src->resource_id] == NULL) {
+		save_error_set(error, 3, "midi resource missing");
+		return SAVE_PREPARE_FAILED;
+	}
+	sound_buffer_type *buf = sound_pointers[src->resource_id];
+	if (buf->type != sound_midi) {
+		save_error_set(error, 3, "midi resource is not MIDI");
+		return SAVE_PREPARE_FAILED;
+	}
+	if (!parse_midi((midi_raw_chunk_type*)&buf->midi, &prepared_parsed_midi)) {
+		save_error_set(error, 3, "midi reparse failed");
+		return SAVE_PREPARE_FAILED;
+	}
+	if (prepared_parsed_midi.num_tracks != src->num_tracks) {
+		free_parsed_midi(&prepared_parsed_midi);
+		save_error_set(error, 3, "midi track count mismatch");
+		return SAVE_PREPARE_FAILED;
+	}
+	if (prepared_parsed_midi.ticks_per_beat != src->ticks_per_beat) {
+		free_parsed_midi(&prepared_parsed_midi);
+		save_error_set(error, 3, "midi ticks-per-beat mismatch");
+		return SAVE_PREPARE_FAILED;
+	}
+	// Verify every stored cursor against the reparsed track data.
+	for (int i = 0; i < src->num_tracks; ++i) {
+		midi_track_type *track = &prepared_parsed_midi.tracks[i];
+		int ei = src->tracks[i].event_index;
+		if (ei < 0 || ei > track->num_events) {
+			free_parsed_midi(&prepared_parsed_midi);
+			save_error_set(error, 3, "midi event cursor out of range");
+			return SAVE_PREPARE_FAILED;
+		}
+		if (src->tracks[i].next_pause_tick < 0) {
+			free_parsed_midi(&prepared_parsed_midi);
+			save_error_set(error, 3, "midi next-pause tick invalid");
+			return SAVE_PREPARE_FAILED;
+		}
+	}
+	prepared_midi_valid = true;
+	return SAVE_OK;
+}
+
+void midi_snapshot_dispose(void) {
+	if (prepared_midi_valid && prepared_parsed_midi.tracks != NULL) {
+		free_parsed_midi(&prepared_parsed_midi);
+	}
+	prepared_midi_valid = false;
+}
+
+void midi_snapshot_commit(const MidiAudioState *prepared) {
+	if (!prepared->playing) {
+		midi_playing = 0;
+		free_parsed_midi(&parsed_midi);
+		playing_midi_id = -1;
+		return;
+	}
+	// Install the prepared, cursor-verified continuation.
+	free_parsed_midi(&parsed_midi);
+	parsed_midi = prepared_parsed_midi;
+	memset(&prepared_parsed_midi, 0, sizeof(prepared_parsed_midi));
+	prepared_midi_valid = false;
+
+	midi_tracks = parsed_midi.tracks;
+	num_midi_tracks = prepared->num_tracks;
+	for (int i = 0; i < num_midi_tracks; ++i) {
+		midi_tracks[i].event_index = prepared->tracks[i].event_index;
+		midi_tracks[i].next_pause_tick = prepared->tracks[i].next_pause_tick;
+	}
+	midi_current_pos = prepared->current_pos;
+	midi_current_pos_fract_part = prepared->current_pos_fract;
+	ticks_to_next_pause = prepared->ticks_to_next_pause;
+	us_per_beat = prepared->us_per_beat;
+	ticks_per_beat = prepared->ticks_per_beat;
+	mixing_freq = prepared->mixing_freq;
+	midi_semitones_higher = prepared->semitones_higher;
+	current_midi_tempo_modifier = prepared->tempo_modifier;
+	for (int i = 0; i < MAX_MIDI_CHANNELS; ++i) channel_instrument[i] = prepared->channel_instrument[i];
+	for (int i = 0; i < MAX_OPL_VOICES; ++i) {
+		voice_note[i] = prepared->voice_note[i];
+		voice_instrument[i] = prepared->voice_instrument[i];
+		voice_channel[i] = prepared->voice_channel[i];
+	}
+	last_used_voice = prepared->last_used_voice;
+	opl_install(&prepared->opl, &opl_chip, mixing_freq);
+	midi_playing = 1;
+	playing_midi_id = prepared->resource_id;
 }

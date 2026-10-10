@@ -1,0 +1,106 @@
+/*
+Shared manifest of the engine's replay/quick-save base state fields.
+Copyright (C) 2026  The Prince of Persia macOS port authors.
+
+This list is the single source of truth for the ordered field stream used by
+the legacy replay contract (quick_process) and the native .popsave codec.
+Each entry: POP_BASE_FIELD(name, c_type, codec_kind, decl)
+  name       - bare identifier, used by field accessors
+  c_type     - base C type, used by the native codec
+  codec_kind - native codec dispatch tag
+  decl       - full member declaration (identifier plus array dimensions)
+
+IMPORTANT: keep the exact order and conditional tails below in sync with the
+pinned SDLPoP commit state layout. The legacy replay fixtures depend on it.
+*/
+
+// level
+POP_BASE_FIELD(level, level_type, LEVEL, level)
+POP_BASE_FIELD(checkpoint, word, U16, checkpoint)
+POP_BASE_FIELD(upside_down, word, U16, upside_down)
+POP_BASE_FIELD(drawn_room, word, U16, drawn_room)
+POP_BASE_FIELD(current_level, word, U16, current_level)
+POP_BASE_FIELD(next_level, word, U16, next_level)
+POP_BASE_FIELD(mobs_count, short, I16, mobs_count)
+POP_BASE_FIELD(mobs, mob_type, MOBS, mobs[14])
+POP_BASE_FIELD(trobs_count, short, I16, trobs_count)
+POP_BASE_FIELD(trobs, trob_type, TROBS, trobs[TROBS_MAX])
+POP_BASE_FIELD(leveldoor_open, word, U16, leveldoor_open)
+// kid
+POP_BASE_FIELD(Kid, char_type, CHAR, Kid)
+POP_BASE_FIELD(hitp_curr, word, U16, hitp_curr)
+POP_BASE_FIELD(hitp_max, word, U16, hitp_max)
+POP_BASE_FIELD(hitp_beg_lev, word, U16, hitp_beg_lev)
+POP_BASE_FIELD(grab_timer, word, U16, grab_timer)
+POP_BASE_FIELD(holding_sword, word, U16, holding_sword)
+POP_BASE_FIELD(united_with_shadow, word, U16, united_with_shadow)
+POP_BASE_FIELD(have_sword, word, U16, have_sword)
+POP_BASE_FIELD(kid_sword_strike, word, U16, kid_sword_strike)
+POP_BASE_FIELD(pickup_obj_type, short, I16, pickup_obj_type)
+POP_BASE_FIELD(offguard, word, U16, offguard)
+// guard
+POP_BASE_FIELD(Guard, char_type, CHAR, Guard)
+POP_BASE_FIELD(Char, char_type, CHAR, Char)
+POP_BASE_FIELD(Opp, char_type, CHAR, Opp)
+POP_BASE_FIELD(guardhp_curr, word, U16, guardhp_curr)
+POP_BASE_FIELD(guardhp_max, word, U16, guardhp_max)
+POP_BASE_FIELD(demo_index, word, U16, demo_index)
+POP_BASE_FIELD(demo_time, short, I16, demo_time)
+POP_BASE_FIELD(curr_guard_color, word, U16, curr_guard_color)
+POP_BASE_FIELD(guard_notice_timer, short, I16, guard_notice_timer)
+POP_BASE_FIELD(guard_skill, word, U16, guard_skill)
+POP_BASE_FIELD(shadow_initialized, word, U16, shadow_initialized)
+POP_BASE_FIELD(guard_refrac, word, U16, guard_refrac)
+POP_BASE_FIELD(justblocked, word, U16, justblocked)
+POP_BASE_FIELD(droppedout, word, U16, droppedout)
+// collision
+POP_BASE_FIELD(curr_row_coll_room, sbyte, S8A10, curr_row_coll_room[10])
+POP_BASE_FIELD(curr_row_coll_flags, byte, U8A10, curr_row_coll_flags[10])
+POP_BASE_FIELD(below_row_coll_room, sbyte, S8A10, below_row_coll_room[10])
+POP_BASE_FIELD(below_row_coll_flags, byte, U8A10, below_row_coll_flags[10])
+POP_BASE_FIELD(above_row_coll_room, sbyte, S8A10, above_row_coll_room[10])
+POP_BASE_FIELD(above_row_coll_flags, byte, U8A10, above_row_coll_flags[10])
+POP_BASE_FIELD(prev_collision_row, sbyte, I8, prev_collision_row)
+// flash
+POP_BASE_FIELD(flash_color, word, U16, flash_color)
+POP_BASE_FIELD(flash_time, word, U16, flash_time)
+// sounds
+POP_BASE_FIELD(need_level1_music, word, U16, need_level1_music)
+POP_BASE_FIELD(is_screaming, word, U16, is_screaming)
+POP_BASE_FIELD(is_feather_fall, word, U16, is_feather_fall)
+POP_BASE_FIELD(last_loose_sound, word, U16, last_loose_sound)
+// random
+POP_BASE_FIELD(random_seed, dword, U32, random_seed)
+// remaining time
+POP_BASE_FIELD(rem_min, short, I16, rem_min)
+POP_BASE_FIELD(rem_tick, word, U16, rem_tick)
+// saved controls
+POP_BASE_FIELD(control_x, sbyte, I8, control_x)
+POP_BASE_FIELD(control_y, sbyte, I8, control_y)
+POP_BASE_FIELD(control_shift, sbyte, I8, control_shift)
+POP_BASE_FIELD(control_forward, sbyte, I8, control_forward)
+POP_BASE_FIELD(control_backward, sbyte, I8, control_backward)
+POP_BASE_FIELD(control_up, sbyte, I8, control_up)
+POP_BASE_FIELD(control_down, sbyte, I8, control_down)
+POP_BASE_FIELD(control_shift2, sbyte, I8, control_shift2)
+POP_BASE_FIELD(ctrl1_forward, sbyte, I8, ctrl1_forward)
+POP_BASE_FIELD(ctrl1_backward, sbyte, I8, ctrl1_backward)
+POP_BASE_FIELD(ctrl1_up, sbyte, I8, ctrl1_up)
+POP_BASE_FIELD(ctrl1_down, sbyte, I8, ctrl1_down)
+POP_BASE_FIELD(ctrl1_shift2, sbyte, I8, ctrl1_shift2)
+// replay recording state
+#ifdef USE_REPLAY
+POP_BASE_FIELD(curr_tick, dword, U32, curr_tick)
+#endif
+#ifdef USE_COLORED_TORCHES
+POP_BASE_FIELD(torch_colors, byte, TCOL, torch_colors[25][30])
+#endif
+#ifdef USE_SUPER_HIGH_JUMP
+POP_BASE_FIELD(super_jump_fall, byte, U8, super_jump_fall)
+POP_BASE_FIELD(super_jump_timer, byte, U8, super_jump_timer)
+POP_BASE_FIELD(super_jump_room, byte, U8, super_jump_room)
+POP_BASE_FIELD(super_jump_col, sbyte, I8, super_jump_col)
+POP_BASE_FIELD(super_jump_row, sbyte, I8, super_jump_row)
+#endif
+POP_BASE_FIELD(is_guard_notice, word, U16, is_guard_notice)
+POP_BASE_FIELD(can_guard_see_kid, short, I16, can_guard_see_kid)

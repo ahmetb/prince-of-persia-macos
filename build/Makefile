@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /Users/ahmet.balkan/junk/prince.exe/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/opt/homebrew/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -128,6 +138,19 @@ PrinceOfPersia: cmake_check_build_system
 PrinceOfPersia/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrinceOfPersia.dir/build.make CMakeFiles/PrinceOfPersia.dir/build
 .PHONY : PrinceOfPersia/fast
+
+#=============================================================================
+# Target rules for targets named save_rejection_tests
+
+# Build rule for target.
+save_rejection_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 save_rejection_tests
+.PHONY : save_rejection_tests
+
+# fast build rule for target.
+save_rejection_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_rejection_tests.dir/build.make CMakeFiles/save_rejection_tests.dir/build
+.PHONY : save_rejection_tests/fast
 
 #=============================================================================
 # Target rules for targets named sdl_headers_copy
@@ -200,6 +223,7 @@ src/macos_app.o: src/macos_app.m.o
 # target to build an object file
 src/macos_app.m.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrinceOfPersia.dir/build.make CMakeFiles/PrinceOfPersia.dir/src/macos_app.m.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_rejection_tests.dir/build.make CMakeFiles/save_rejection_tests.dir/src/macos_app.m.o
 .PHONY : src/macos_app.m.o
 
 src/main.o: src/main.c.o
@@ -226,6 +250,30 @@ src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PrinceOfPersia.dir/build.make CMakeFiles/PrinceOfPersia.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+tests/save_rejection_tests.o: tests/save_rejection_tests.c.o
+.PHONY : tests/save_rejection_tests.o
+
+# target to build an object file
+tests/save_rejection_tests.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_rejection_tests.dir/build.make CMakeFiles/save_rejection_tests.dir/tests/save_rejection_tests.c.o
+.PHONY : tests/save_rejection_tests.c.o
+
+tests/save_rejection_tests.i: tests/save_rejection_tests.c.i
+.PHONY : tests/save_rejection_tests.i
+
+# target to preprocess a source file
+tests/save_rejection_tests.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_rejection_tests.dir/build.make CMakeFiles/save_rejection_tests.dir/tests/save_rejection_tests.c.i
+.PHONY : tests/save_rejection_tests.c.i
+
+tests/save_rejection_tests.s: tests/save_rejection_tests.c.s
+.PHONY : tests/save_rejection_tests.s
+
+# target to generate assembly for a file
+tests/save_rejection_tests.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/save_rejection_tests.dir/build.make CMakeFiles/save_rejection_tests.dir/tests/save_rejection_tests.c.s
+.PHONY : tests/save_rejection_tests.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -234,16 +282,21 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... sdl_headers_copy"
 	@echo "... uninstall"
 	@echo "... PrinceOfPersia"
 	@echo "... SDL2-static"
 	@echo "... SDL2_image"
 	@echo "... pop_core"
+	@echo "... save_rejection_tests"
 	@echo "... src/macos_app.o"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... tests/save_rejection_tests.o"
+	@echo "... tests/save_rejection_tests.i"
+	@echo "... tests/save_rejection_tests.s"
 .PHONY : help
 
 

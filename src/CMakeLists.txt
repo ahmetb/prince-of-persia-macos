@@ -31,6 +31,10 @@ set(POP_CORE_SOURCES
         screenshot.c
         menu.c
         stb_vorbis.c
+        game_snapshot.c
+        game_snapshot.h
+        game_state_fields.def
+        midi_snapshot.h
 )
 
 add_library(pop_core STATIC ${POP_CORE_SOURCES})

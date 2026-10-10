@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/pop_core.dir/data.c.o"
   "CMakeFiles/pop_core.dir/data.c.o.d"
+  "CMakeFiles/pop_core.dir/game_snapshot.c.o"
+  "CMakeFiles/pop_core.dir/game_snapshot.c.o.d"
   "CMakeFiles/pop_core.dir/lighting.c.o"
   "CMakeFiles/pop_core.dir/lighting.c.o.d"
   "CMakeFiles/pop_core.dir/menu.c.o"

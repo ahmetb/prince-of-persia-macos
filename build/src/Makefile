@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /Users/ahmet.balkan/junk/prince.exe/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/opt/homebrew/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -153,6 +163,30 @@ data.s: data.c.s
 data.c.s:
 	cd /Users/ahmet.balkan/junk/prince.exe/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/data.c.s
 .PHONY : data.c.s
+
+game_snapshot.o: game_snapshot.c.o
+.PHONY : game_snapshot.o
+
+# target to build an object file
+game_snapshot.c.o:
+	cd /Users/ahmet.balkan/junk/prince.exe/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/game_snapshot.c.o
+.PHONY : game_snapshot.c.o
+
+game_snapshot.i: game_snapshot.c.i
+.PHONY : game_snapshot.i
+
+# target to preprocess a source file
+game_snapshot.c.i:
+	cd /Users/ahmet.balkan/junk/prince.exe/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/game_snapshot.c.i
+.PHONY : game_snapshot.c.i
+
+game_snapshot.s: game_snapshot.c.s
+.PHONY : game_snapshot.s
+
+# target to generate assembly for a file
+game_snapshot.c.s:
+	cd /Users/ahmet.balkan/junk/prince.exe/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/pop_core.dir/build.make src/CMakeFiles/pop_core.dir/game_snapshot.c.s
+.PHONY : game_snapshot.c.s
 
 lighting.o: lighting.c.o
 .PHONY : lighting.o
@@ -618,10 +652,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... pop_core"
 	@echo "... data.o"
 	@echo "... data.i"
 	@echo "... data.s"
+	@echo "... game_snapshot.o"
+	@echo "... game_snapshot.i"
+	@echo "... game_snapshot.s"
 	@echo "... lighting.o"
 	@echo "... lighting.i"
 	@echo "... lighting.s"

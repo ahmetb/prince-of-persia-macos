@@ -1734,6 +1734,12 @@ short digi_playing = 0;
 short midi_playing = 0;
 short ogg_playing = 0;
 
+// Resource ids (indices into sound_pointers) of the currently playing or
+// last-started sound of each kind, used by the snapshot codec.
+int playing_speaker_id = -1;
+int playing_digi_id = -1;
+int playing_midi_id = -1;
+
 // The currently playing sound buffer for the PC speaker.
 speaker_type* current_speaker_sound;
 // Index for which note is currently playing.
@@ -1748,6 +1754,7 @@ void speaker_sound_stop(void) {
 	current_speaker_sound = NULL;
 	speaker_note_index = 0;
 	current_speaker_note_samples_already_emitted = 0;
+	playing_speaker_id = -1;
 	SDL_UnlockAudio();
 }
 
@@ -1781,6 +1788,7 @@ void stop_digi(void) {
 	digi_buffer = NULL;
 	digi_remaining_length = 0;
 	digi_remaining_pos = NULL;
+	playing_digi_id = -1;
 	SDL_UnlockAudio();
 }
 
@@ -1850,6 +1858,7 @@ void speaker_callback(void *userdata, Uint8 *stream, int len) {
 			speaker_playing = 0;
 			current_speaker_sound = NULL;
 			speaker_note_index = 0;
+			playing_speaker_id = -1;
 			SDL_Event event;
 			memset(&event, 0, sizeof(event));
 			event.type = SDL_USEREVENT;
@@ -1911,6 +1920,7 @@ void digi_callback(void *userdata, Uint8 *stream, int len) {
 		event.type = SDL_USEREVENT;
 		event.user.code = userevent_SOUND;
 		digi_playing = 0;
+		playing_digi_id = -1;
 		SDL_PushEvent(&event);
 	}
 	// Advance the pointer.
@@ -2251,6 +2261,14 @@ void free_sound(sound_buffer_type* buffer) {
 }
 
 // seg009:7220
+// Resolves a sound buffer pointer back to its index in sound_pointers, or -1.
+static int sound_buffer_index(sound_buffer_type *buffer) {
+	for (int i = 0; i < max_sound_id; ++i) {
+		if (sound_pointers[i] == buffer) return i;
+	}
+	return -1;
+}
+
 void play_sound_from_buffer(sound_buffer_type* buffer) {
 
 #ifdef USE_REPLAY
@@ -2263,15 +2281,19 @@ void play_sound_from_buffer(sound_buffer_type* buffer) {
 		//quit(1);
 		return;
 	}
+	int resource_id = sound_buffer_index(buffer);
 	switch (buffer->type & 7) {
 		case sound_speaker:
+			playing_speaker_id = resource_id;
 			play_speaker_sound(buffer);
 		break;
 		case sound_digi_converted:
 		case sound_digi:
+			playing_digi_id = resource_id;
 			play_digi_sound(buffer);
 		break;
 		case sound_midi:
+			playing_midi_id = resource_id;
 			play_midi_sound(buffer);
 		break;
 		case sound_ogg:
