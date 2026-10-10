@@ -88,18 +88,12 @@ set(APP_BUNDLE_ID "local.princeofpersia.metal")
 set(APP_VERSION "1.0.0")
 set(APP_BUNDLE_DIR "${CMAKE_CURRENT_BINARY_DIR}/${APP_NAME}.app")
 
-add_executable(${APP_EXECUTABLE_NAME} MACOSX_BUNDLE
+add_executable(${APP_EXECUTABLE_NAME}
     src/main.c
     src/macos_app.m
 )
 
 set_target_properties(${APP_EXECUTABLE_NAME} PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER "${APP_BUNDLE_ID}"
-    MACOSX_BUNDLE_BUNDLE_NAME "${APP_NAME}"
-    MACOSX_BUNDLE_BUNDLE_VERSION "${APP_VERSION}"
-    MACOSX_BUNDLE_SHORT_VERSION_STRING "${APP_VERSION}"
-    MACOSX_BUNDLE_EXECUTABLE_NAME "${APP_EXECUTABLE_NAME}"
-    MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/macos/Info.plist.in"
     OUTPUT_NAME "${APP_EXECUTABLE_NAME}"
 )
 
@@ -129,10 +123,20 @@ target_link_libraries(${APP_EXECUTABLE_NAME} PRIVATE
 
 set_source_files_properties(src/macos_app.m PROPERTIES COMPILE_FLAGS "-fobjc-arc")
 
-# Bundle app-owned resources: default configuration and license/help notices.
-set(APP_RESOURCES_DIR "${APP_BUNDLE_DIR}/Contents/Resources")
+# Assemble the .app bundle by hand so the on-disk name ("Prince of Persia.app")
+# and the executable name ("Contents/MacOS/PrinceOfPersia") are both exact.
+# Only app-owned resources are packaged: Info.plist, the default configuration
+# and license/help notices; no game artwork, DAT files or level fallback tree.
+set(APP_CONTENTS_DIR "${APP_BUNDLE_DIR}/Contents")
+set(APP_RESOURCES_DIR "${APP_CONTENTS_DIR}/Resources")
 add_custom_command(TARGET ${APP_EXECUTABLE_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E remove_directory "${APP_BUNDLE_DIR}"
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${APP_BUNDLE_DIR}/Contents/MacOS"
     COMMAND ${CMAKE_COMMAND} -E make_directory "${APP_RESOURCES_DIR}"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:${APP_EXECUTABLE_NAME}>"
+            "${APP_BUNDLE_DIR}/Contents/MacOS/${APP_EXECUTABLE_NAME}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${CMAKE_CURRENT_SOURCE_DIR}/macos/Info.plist.in" "${APP_CONTENTS_DIR}/Info.plist"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${CMAKE_CURRENT_SOURCE_DIR}/macos/SDLPoP.ini" "${APP_RESOURCES_DIR}/SDLPoP.ini"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

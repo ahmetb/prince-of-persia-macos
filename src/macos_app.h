@@ -41,6 +41,9 @@ bool macos_prepare_application(void);
 // Returns false (and leaves `out` empty) when the result would be truncated.
 bool macos_copy_path(MacosPathRoot root, const char *relative, char *out, size_t capacity);
 
+// Presents a modal, non-fatal native alert on the main thread.
+void macos_present_error(const char *title, const char *message);
+
 #ifdef __cplusplus
 }
 #endif

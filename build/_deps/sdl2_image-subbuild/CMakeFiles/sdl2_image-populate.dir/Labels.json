@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/CMakeFiles/sdl2_image-populate"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/CMakeFiles/sdl2_image-populate.rule"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/CMakeFiles/sdl2_image-populate-complete.rule"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-build.rule"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-configure.rule"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-download.rule"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-install.rule"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-mkdir.rule"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-patch.rule"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-test.rule"
+		},
+		{
+			"file" : "/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"sdl2_image-populate"
+		],
+		"name" : "sdl2_image-populate"
+	}
+}

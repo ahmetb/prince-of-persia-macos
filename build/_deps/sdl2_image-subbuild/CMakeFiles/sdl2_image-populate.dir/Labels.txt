@@ -1,0 +1,14 @@
+# Target labels
+ sdl2_image-populate
+# Source files and their labels
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/CMakeFiles/sdl2_image-populate
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/CMakeFiles/sdl2_image-populate.rule
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/CMakeFiles/sdl2_image-populate-complete.rule
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-build.rule
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-configure.rule
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-download.rule
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-install.rule
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-mkdir.rule
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-patch.rule
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-test.rule
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/sdl2_image-populate-prefix/src/sdl2_image-populate-stamp/sdl2_image-populate-update.rule

@@ -1,0 +1,3 @@
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/CMakeFiles/sdl2_image-populate.dir
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/CMakeFiles/edit_cache.dir
+/Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-subbuild/CMakeFiles/rebuild_cache.dir

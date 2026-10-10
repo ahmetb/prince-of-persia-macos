@@ -19,6 +19,7 @@ The authors of this program may be contacted at https://forum.princed.org
 */
 
 #include "common.h"
+#include "macos_app.h"
 
 
 #ifdef __amigaos4__
@@ -37,6 +38,10 @@ int main(int argc, char *argv[])
 	#endif
 	g_argc = argc;
 	g_argv = argv;
+	if (!macos_prepare_application()) {
+		// Consent declined, or acquisition failed with an explicit Quit.
+		return 0;
+	}
 	pop_main();
 	return 0;
 }
