@@ -33,19 +33,23 @@ src/CMakeFiles/pop_core.dir/data.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -130,6 +134,7 @@ src/CMakeFiles/pop_core.dir/data.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -156,6 +161,7 @@ src/CMakeFiles/pop_core.dir/data.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -251,19 +257,23 @@ src/CMakeFiles/pop_core.dir/lighting.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -348,6 +358,7 @@ src/CMakeFiles/pop_core.dir/lighting.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -374,6 +385,7 @@ src/CMakeFiles/pop_core.dir/lighting.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -469,19 +481,23 @@ src/CMakeFiles/pop_core.dir/menu.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -566,6 +582,7 @@ src/CMakeFiles/pop_core.dir/menu.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -592,6 +609,7 @@ src/CMakeFiles/pop_core.dir/menu.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -687,19 +705,23 @@ src/CMakeFiles/pop_core.dir/midi.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -784,6 +806,7 @@ src/CMakeFiles/pop_core.dir/midi.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -810,6 +833,7 @@ src/CMakeFiles/pop_core.dir/midi.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -1006,19 +1030,23 @@ src/CMakeFiles/pop_core.dir/options.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -1103,6 +1131,7 @@ src/CMakeFiles/pop_core.dir/options.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -1129,6 +1158,7 @@ src/CMakeFiles/pop_core.dir/options.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -1188,6 +1218,7 @@ src/CMakeFiles/pop_core.dir/options.c.o
  /Users/ahmet.balkan/junk/prince.exe/src/common.h
  /Users/ahmet.balkan/junk/prince.exe/src/config.h
  /Users/ahmet.balkan/junk/prince.exe/src/data.h
+ /Users/ahmet.balkan/junk/prince.exe/src/macos_app.h
  /Users/ahmet.balkan/junk/prince.exe/src/proto.h
  /Users/ahmet.balkan/junk/prince.exe/src/stb_vorbis.c
  /Users/ahmet.balkan/junk/prince.exe/src/types.h
@@ -1224,19 +1255,23 @@ src/CMakeFiles/pop_core.dir/replay.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -1321,6 +1356,7 @@ src/CMakeFiles/pop_core.dir/replay.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -1347,6 +1383,7 @@ src/CMakeFiles/pop_core.dir/replay.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -1442,19 +1479,23 @@ src/CMakeFiles/pop_core.dir/screenshot.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -1539,6 +1580,7 @@ src/CMakeFiles/pop_core.dir/screenshot.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -1565,6 +1607,7 @@ src/CMakeFiles/pop_core.dir/screenshot.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -1624,6 +1667,7 @@ src/CMakeFiles/pop_core.dir/screenshot.c.o
  /Users/ahmet.balkan/junk/prince.exe/src/common.h
  /Users/ahmet.balkan/junk/prince.exe/src/config.h
  /Users/ahmet.balkan/junk/prince.exe/src/data.h
+ /Users/ahmet.balkan/junk/prince.exe/src/macos_app.h
  /Users/ahmet.balkan/junk/prince.exe/src/proto.h
  /Users/ahmet.balkan/junk/prince.exe/src/stb_vorbis.c
  /Users/ahmet.balkan/junk/prince.exe/src/types.h
@@ -1660,19 +1704,23 @@ src/CMakeFiles/pop_core.dir/seg000.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -1758,6 +1806,7 @@ src/CMakeFiles/pop_core.dir/seg000.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -1784,6 +1833,7 @@ src/CMakeFiles/pop_core.dir/seg000.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -1843,6 +1893,7 @@ src/CMakeFiles/pop_core.dir/seg000.c.o
  /Users/ahmet.balkan/junk/prince.exe/src/common.h
  /Users/ahmet.balkan/junk/prince.exe/src/config.h
  /Users/ahmet.balkan/junk/prince.exe/src/data.h
+ /Users/ahmet.balkan/junk/prince.exe/src/macos_app.h
  /Users/ahmet.balkan/junk/prince.exe/src/proto.h
  /Users/ahmet.balkan/junk/prince.exe/src/stb_vorbis.c
  /Users/ahmet.balkan/junk/prince.exe/src/types.h
@@ -1879,19 +1930,23 @@ src/CMakeFiles/pop_core.dir/seg001.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -1976,6 +2031,7 @@ src/CMakeFiles/pop_core.dir/seg001.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -2002,6 +2058,7 @@ src/CMakeFiles/pop_core.dir/seg001.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -2097,19 +2154,23 @@ src/CMakeFiles/pop_core.dir/seg002.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -2194,6 +2255,7 @@ src/CMakeFiles/pop_core.dir/seg002.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -2220,6 +2282,7 @@ src/CMakeFiles/pop_core.dir/seg002.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -2315,19 +2378,23 @@ src/CMakeFiles/pop_core.dir/seg003.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -2412,6 +2479,7 @@ src/CMakeFiles/pop_core.dir/seg003.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -2438,6 +2506,7 @@ src/CMakeFiles/pop_core.dir/seg003.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -2533,19 +2602,23 @@ src/CMakeFiles/pop_core.dir/seg004.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -2630,6 +2703,7 @@ src/CMakeFiles/pop_core.dir/seg004.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -2656,6 +2730,7 @@ src/CMakeFiles/pop_core.dir/seg004.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -2751,19 +2826,23 @@ src/CMakeFiles/pop_core.dir/seg005.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -2848,6 +2927,7 @@ src/CMakeFiles/pop_core.dir/seg005.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -2874,6 +2954,7 @@ src/CMakeFiles/pop_core.dir/seg005.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -2969,19 +3050,23 @@ src/CMakeFiles/pop_core.dir/seg006.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -3066,6 +3151,7 @@ src/CMakeFiles/pop_core.dir/seg006.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -3092,6 +3178,7 @@ src/CMakeFiles/pop_core.dir/seg006.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -3187,19 +3274,23 @@ src/CMakeFiles/pop_core.dir/seg007.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -3284,6 +3375,7 @@ src/CMakeFiles/pop_core.dir/seg007.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -3310,6 +3402,7 @@ src/CMakeFiles/pop_core.dir/seg007.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -3405,19 +3498,23 @@ src/CMakeFiles/pop_core.dir/seg008.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -3502,6 +3599,7 @@ src/CMakeFiles/pop_core.dir/seg008.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -3528,6 +3626,7 @@ src/CMakeFiles/pop_core.dir/seg008.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -3623,9 +3722,11 @@ src/CMakeFiles/pop_core.dir/seg009.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
@@ -3633,11 +3734,13 @@ src/CMakeFiles/pop_core.dir/seg009.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/errno.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -3724,6 +3827,7 @@ src/CMakeFiles/pop_core.dir/seg009.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -3750,6 +3854,7 @@ src/CMakeFiles/pop_core.dir/seg009.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h
@@ -3809,6 +3914,7 @@ src/CMakeFiles/pop_core.dir/seg009.c.o
  /Users/ahmet.balkan/junk/prince.exe/src/common.h
  /Users/ahmet.balkan/junk/prince.exe/src/config.h
  /Users/ahmet.balkan/junk/prince.exe/src/data.h
+ /Users/ahmet.balkan/junk/prince.exe/src/macos_app.h
  /Users/ahmet.balkan/junk/prince.exe/src/proto.h
  /Users/ahmet.balkan/junk/prince.exe/src/stb_vorbis.c
  /Users/ahmet.balkan/junk/prince.exe/src/types.h
@@ -3845,19 +3951,23 @@ src/CMakeFiles/pop_core.dir/seqtbl.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_wctype_t.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_wchar.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/ctype.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/inttypes.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h
@@ -3942,6 +4052,7 @@ src/CMakeFiles/pop_core.dir/seqtbl.c.o
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stat.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/stdio.h
+ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/types.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/unistd.h
  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h
@@ -3968,6 +4079,7 @@ src/CMakeFiles/pop_core.dir/seqtbl.c.o
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/arm_vector_types.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/float.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/inttypes.h
+ /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/ptrcheck.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdarg.h
  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/stdbool.h

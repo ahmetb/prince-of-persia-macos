@@ -670,7 +670,6 @@ void turn_fixes_and_enhancements_on_off(byte new_state);
 void turn_custom_options_on_off(byte new_state);
 void set_options_to_default(void);
 void load_global_options(void);
-void check_mod_param(void);
 void load_mod_options(void);
 int process_rw_write(SDL_RWops* rw, void* data, size_t data_size);
 int process_rw_read(SDL_RWops* rw, void* data, size_t data_size);

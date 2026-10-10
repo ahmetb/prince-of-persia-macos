@@ -21,13 +21,19 @@ The authors of this program may be contacted at https://forum.princed.org
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <limits.h>
+
 // WINDOWS overrides
 #ifdef _MSC_VER
 #define strncasecmp _strnicmp
 #define strcasecmp _stricmp
 #endif
 
-#define POP_MAX_PATH 256
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif
+
+#define POP_MAX_PATH PATH_MAX
 #define POP_MAX_OPTIONS_SIZE 256
 
 #define SDLPOP_VERSION "1.24 RC"

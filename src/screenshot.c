@@ -19,6 +19,7 @@ The authors of this program may be contacted at https://forum.princed.org
 */
 
 #include "common.h"
+#include "macos_app.h"
 
 #ifdef USE_SCREENSHOT
 
@@ -28,8 +29,8 @@ int screenshot_index = 0;
 
 // Use incrementing numbers and a separate folder, like DOSBox.
 void make_screenshot_filename(void) {
-	// Create the screenshots directory in SDLPoP's directory, even if the current directory is something else.
-	snprintf_check(screenshots_folder, sizeof(screenshots_folder), "%s", locate_file("screenshots"));
+	// Screenshots go beneath the app-owned Screenshots root.
+	macos_copy_path(MACOS_SCREENSHOTS, "", screenshots_folder, sizeof(screenshots_folder));
 	// Create the folder if it doesn't exist yet:
 #if defined WIN32 || _WIN32 || WIN64 || _WIN64
 	mkdir (screenshots_folder);

@@ -356,7 +356,6 @@ setting_type general_settings[] = {
 				.text = "Restore defaults...", .explanation = "Revert all settings to the default state."},
 };
 
-NAMES_LIST(use_hardware_acceleration_setting_names, {"OFF", "ON", "AUTO",});
 NAMES_LIST(scaling_type_setting_names, {"Sharp", "Fuzzy", "Blurry",});
 
 int integer_scaling_possible =
@@ -371,13 +370,6 @@ setting_type visuals_settings[] = {
 		{.id = SETTING_FULLSCREEN, .style = SETTING_STYLE_TOGGLE, .linked = &start_fullscreen,
 				.text = "Start fullscreen",
 				.explanation = "Start the game in fullscreen mode.\nYou can also toggle fullscreen by pressing Alt+Enter."},
-		{.id = SETTING_USE_HARDWARE_ACCELERATION, .style = SETTING_STYLE_NUMBER, .number_type = SETTING_BYTE, .max = 2,
-				.linked = &use_hardware_acceleration, .names_list = &use_hardware_acceleration_setting_names_list,
-				.text = "Use hardware acceleration",
-				.explanation = "Auto - Use hardware acceleration, if available.\n"
-				               "On - Force hardware acceleration.\n"
-				               "Off - Disable hardware acceleration.\n"
-				               "Note: This requires a restart."},
 		{.id = SETTING_USE_CORRECT_ASPECT_RATIO, .style = SETTING_STYLE_TOGGLE, .linked = &use_correct_aspect_ratio,
 				.text = "Use 4:3 aspect ratio",
 				.explanation = "Render the game in the originally intended 4:3 aspect ratio."
@@ -404,31 +396,16 @@ setting_type visuals_settings[] = {
 				.text = "Flashing enabled",
 				.explanation = "Turn flashing on or off."},
 #endif
-#ifdef USE_LIGHTING
-		{.id = SETTING_ENABLE_LIGHTING, .style = SETTING_STYLE_TOGGLE, .linked = &enable_lighting,
-				.text = "Torch shadows enabled",
-				.explanation = "Darken those parts of the screen which are not near a torch."},
-#endif
 };
 
 setting_type gameplay_settings[] = {
 		{.id = SETTING_ENABLE_CHEATS, .style = SETTING_STYLE_TOGGLE, .linked = &cheats_enabled,
 				.text = "Enable cheats",
 				.explanation = "Turn cheats on or off."/*"\nAlso, display the CHEATS option on the pause menu."*/},
-#ifdef USE_COPYPROT
-		{.id = SETTING_ENABLE_COPYPROT, .style = SETTING_STYLE_TOGGLE, .linked = &enable_copyprot,
-				.text = "Enable copy protection level",
-				.explanation = "Enable or disable the potions (copy protection) level."},
-#endif
 #ifdef USE_QUICKSAVE
 		{.id = SETTING_ENABLE_QUICKSAVE, .style = SETTING_STYLE_TOGGLE, .linked = &enable_quicksave,
 				.text = "Enable quicksave",
 				.explanation = "Enable quicksave/load feature.\nPress F6 to quicksave, F9 to quickload."},
-		{.id = SETTING_ENABLE_QUICKSAVE_PENALTY, .style = SETTING_STYLE_TOGGLE, .linked = &enable_quicksave_penalty,
-				.text = "Quicksave time penalty",
-				.explanation = "Try to let time run out when quickloading (similar to dying).\n"
-						"Actually, the 'remaining time' will still be restored, "
-						"but a penalty (up to one minute) will be applied."},
 #endif
 #ifdef USE_REPLAY
 		{.id = SETTING_ENABLE_REPLAY, .style = SETTING_STYLE_TOGGLE, .linked = &enable_replay,
@@ -437,214 +414,9 @@ setting_type gameplay_settings[] = {
 						"Press Ctrl+Tab in-game to start recording.\n"
 						"To stop, press Ctrl+Tab again."},
 #endif
-		{.id = SETTING_USE_FIXES_AND_ENHANCEMENTS, .style = SETTING_STYLE_TOGGLE, .linked = &use_fixes_and_enhancements,
-				.text = "Enhanced mode (allow bug fixes)",
-				.explanation = "Turn on game fixes and enhancements.\n"
-						"Below, you can turn individual fixes/enhancements on or off.\n"
-						"NOTE: Some fixes disable 'tricks' that depend on game quirks."},
-		{.id = SETTING_ENABLE_CROUCH_AFTER_CLIMBING, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.enable_crouch_after_climbing, .required = &use_fixes_and_enhancements,
-				.text = "Enable crouching after climbing",
-				.explanation = "Adds a way to crouch immediately after climbing up: press down and forward simultaneously. "
-						"In the original game, this could not be done (pressing down always causes the kid to climb down)."},
-		{.id = SETTING_ENABLE_FREEZE_TIME_DURING_END_MUSIC, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.enable_freeze_time_during_end_music, .required = &use_fixes_and_enhancements,
-				.text = "Freeze time during level end music",
-				.explanation = "Time runs out while the level ending music plays; however, the music can be skipped by disabling sound. "
-						"This option stops time while the ending music is playing (so there is no need to disable sound)."},
-		{.id = SETTING_ENABLE_REMEMBER_GUARD_HP, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.enable_remember_guard_hp, .required = &use_fixes_and_enhancements,
-				.text = "Remember guard hitpoints",
-				.explanation = "Enable guard hitpoints not resetting to their default (maximum) value when re-entering the room."},
-		{.id = SETTING_ENABLE_SUPER_HIGH_JUMP, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.enable_super_high_jump, .required = &use_fixes_and_enhancements,
-				.text = "Enable super high jump",
-				.explanation = "Prince in feather mode (after drinking a green potion) can jump 2 stories high."},
-		{.id = SETTING_ENABLE_JUMP_GRAB, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.enable_jump_grab, .required = &use_fixes_and_enhancements,
-				.text = "Enable jump grab",
-				.explanation = "Prince can grab tiles on the floor above while jumping. "
-                               "Hold Shift and up arrow, but not the forward arrow key."},
-		{.id = SETTING_FIX_GATE_SOUNDS, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_gate_sounds, .required = &use_fixes_and_enhancements,
-				.text = "Fix gate sounds bug",
-				.explanation = "If a room is linked to itself on the left, the closing sounds of the gates in that room can't be heard."},
-		{.id = SETTING_TWO_COLL_BUG, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_two_coll_bug, .required = &use_fixes_and_enhancements,
-				.text = "Fix two collisions bug",
-				.explanation = "An open gate or chomper may enable the Kid to go through walls. (Trick 7, 37, 62)"},
-		{.id = SETTING_FIX_INFINITE_DOWN_BUG, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_infinite_down_bug, .required = &use_fixes_and_enhancements,
-				.text = "Fix infinite down bug",
-				.explanation = "If a room is linked to itself at the bottom, and the Kid's column has no floors, the game hangs."},
-		{.id = SETTING_FIX_GATE_DRAWING_BUG, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_gate_drawing_bug, .required = &use_fixes_and_enhancements,
-				.text = "Fix gate drawing bug",
-				.explanation = "When a gate is under another gate, the top of the bottom gate is not visible."},
-		{.id = SETTING_FIX_BIGPILLAR_CLIMB, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_bigpillar_climb, .required = &use_fixes_and_enhancements,
-				.text = "Fix big pillar climbing bug",
-				.explanation = "When climbing up to a floor with a big pillar top behind, turned right, Kid sees through floor."},
-		{.id = SETTING_FIX_JUMP_DISTANCE_AT_EDGE, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_jump_distance_at_edge, .required = &use_fixes_and_enhancements,
-				.text = "Fix jump distance at edge",
-				.explanation = "When climbing up two floors, turning around and jumping upward, the kid falls down. "
-						"This fix makes the workaround of Trick 25 unnecessary."},
-		{.id = SETTING_FIX_EDGE_DISTANCE_CHECK_WHEN_CLIMBING, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_edge_distance_check_when_climbing, .required = &use_fixes_and_enhancements,
-				.text = "Fix edge distance check when climbing",
-				.explanation = "When climbing to a higher floor, the game unnecessarily checks how far away the edge below is. "
-						"Sometimes you will \"teleport\" some distance when climbing from firm ground."},
-		{.id = SETTING_FIX_PAINLESS_FALL_ON_GUARD, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_painless_fall_on_guard, .required = &use_fixes_and_enhancements,
-				.text = "Fix painless fall on guard",
-				.explanation = "Falling from a great height directly on top of guards does not hurt."},
-		{.id = SETTING_FIX_WALL_BUMP_TRIGGERS_TILE_BELOW, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_wall_bump_triggers_tile_below, .required = &use_fixes_and_enhancements,
-				.text = "Fix wall bump triggering tile below",
-				.explanation = "Bumping against a wall may cause a loose floor below to drop, even though it has not been touched. (Trick 18, 34)"},
-		{.id = SETTING_FIX_STAND_ON_THIN_AIR, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_stand_on_thin_air, .required = &use_fixes_and_enhancements,
-				.text = "Fix standing on thin air",
-				.explanation = "When pressing a loose tile, you can temporarily stand on thin air by standing up from crouching."},
-		{.id = SETTING_FIX_PRESS_THROUGH_CLOSED_GATES, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_press_through_closed_gates, .required = &use_fixes_and_enhancements,
-				.text = "Fix pressing through closed gates",
-				.explanation = "Buttons directly to the right of gates can be pressed even though the gate is closed (Trick 1)"},
-		{.id = SETTING_FIX_GRAB_FALLING_SPEED, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_grab_falling_speed, .required = &use_fixes_and_enhancements,
-				.text = "Fix grab falling speed",
-				.explanation = "By jumping and bumping into a wall, you can sometimes grab a ledge two stories down (which should not be possible)."},
-		{.id = SETTING_FIX_SKELETON_CHOMPER_BLOOD, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_skeleton_chomper_blood, .required = &use_fixes_and_enhancements,
-				.text = "Fix skeleton chomper blood",
-				.explanation = "When chomped, skeletons cause the chomper to become bloody even though skeletons do not have blood."},
-		{.id = SETTING_FIX_MOVE_AFTER_DRINK, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_move_after_drink, .required = &use_fixes_and_enhancements,
-				.text = "Fix movement after drinking",
-				.explanation = "Controls do not get released properly when drinking a potion, sometimes causing unintended movements."},
-		{.id = SETTING_FIX_LOOSE_LEFT_OF_POTION, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_loose_left_of_potion, .required = &use_fixes_and_enhancements,
-				.text = "Fix loose floor left of potion",
-				.explanation = "A drawing bug occurs when a loose tile is placed to the left of a potion (or sword)."},
-		{.id = SETTING_FIX_GUARD_FOLLOWING_THROUGH_CLOSED_GATES, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_guard_following_through_closed_gates, .required = &use_fixes_and_enhancements,
-				.text = "Fix guards passing closed gates",
-				.explanation = "Guards may \"follow\" the kid to the room on the left or right, even though there is a closed gate in between."},
-		{.id = SETTING_FIX_SAFE_LANDING_ON_SPIKES, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_safe_landing_on_spikes, .required = &use_fixes_and_enhancements,
-				.text = "Fix safe landing on spikes",
-				.explanation = "When landing on the edge of a spikes tile, it is considered safe. (Trick 65)"},
-		{.id = SETTING_FIX_GLIDE_THROUGH_WALL, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_glide_through_wall, .required = &use_fixes_and_enhancements,
-				.text = "Fix gliding through walls",
-				.explanation = "The kid may glide through walls after turning around while running (especially when weightless)."},
-		{.id = SETTING_FIX_DROP_THROUGH_TAPESTRY, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_drop_through_tapestry, .required = &use_fixes_and_enhancements,
-				.text = "Fix dropping through tapestries",
-				.explanation = "The kid can drop down through a closed gate, when there is a tapestry (doortop) above the gate."},
-		{.id = SETTING_FIX_LAND_AGAINST_GATE_OR_TAPESTRY, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_land_against_gate_or_tapestry, .required = &use_fixes_and_enhancements,
-				.text = "Fix land against gate or tapestry",
-				.explanation = "When dropping down and landing right in front of a wall, the entire landing animation should normally play. "
-						"However, when falling against a closed gate or a tapestry(+floor) tile, the animation aborts."},
-		{.id = SETTING_FIX_UNINTENDED_SWORD_STRIKE, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_unintended_sword_strike, .required = &use_fixes_and_enhancements,
-				.text = "Fix unintended sword strike",
-				.explanation = "Sometimes, the kid may automatically strike immediately after drawing the sword. "
-						"This especially happens when dropping down from a higher floor and then turning towards the opponent."},
-		{.id = SETTING_FIX_RETREAT_WITHOUT_LEAVING_ROOM, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_retreat_without_leaving_room, .required = &use_fixes_and_enhancements,
-				.text = "Fix retreat without leaving room",
-				.explanation = "By repeatedly pressing 'back' in a swordfight, you can retreat out of a room without the room changing. (Trick 35)"},
-		{.id = SETTING_FIX_RUNNING_JUMP_THROUGH_TAPESTRY, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_running_jump_through_tapestry, .required = &use_fixes_and_enhancements,
-				.text = "Fix running jumps through tapestries",
-				.explanation = "The kid can jump through a tapestry with a running jump to the left, if there is a floor above it."},
-		{.id = SETTING_FIX_PUSH_GUARD_INTO_WALL, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_push_guard_into_wall, .required = &use_fixes_and_enhancements,
-				.text = "Fix pushing guards into walls",
-				.explanation = "Guards can be pushed into walls, because the game does not correctly check for walls located behind a guard."},
-		{.id = SETTING_FIX_JUMP_THROUGH_WALL_ABOVE_GATE, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_jump_through_wall_above_gate, .required = &use_fixes_and_enhancements,
-				.text = "Fix jump through wall above gate",
-				.explanation = "By doing a running jump into a wall, you can fall behind a closed gate two floors down. (e.g. skip in Level 7)"},
-		{.id = SETTING_FIX_CHOMPERS_NOT_STARTING, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_chompers_not_starting, .required = &use_fixes_and_enhancements,
-				.text = "Fix chompers not starting",
-				.explanation = "If you grab a ledge that is one or more floors down, the chompers on that row will not start."},
-		{.id = SETTING_FIX_FEATHER_INTERRUPTED_BY_LEVELDOOR, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_feather_interrupted_by_leveldoor, .required = &use_fixes_and_enhancements,
-				.text = "Fix leveldoor interrupting feather fall",
-				.explanation = "As soon as a level door has completely opened, the feather fall effect is interrupted because the sound stops."},
-		{.id = SETTING_FIX_OFFSCREEN_GUARDS_DISAPPEARING, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_offscreen_guards_disappearing, .required = &use_fixes_and_enhancements,
-				.text = "Fix offscreen guards disappearing",
-				.explanation = "Guards will often not reappear in another room if they have been pushed (partly or entirely) offscreen."},
-		{.id = SETTING_FIX_MOVE_AFTER_SHEATHE, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_move_after_sheathe, .required = &use_fixes_and_enhancements,
-				.text = "Fix movement after sheathing",
-				.explanation = "While putting the sword away, if you press forward and down, and then release down, the kid will still duck."},
-		{.id = SETTING_FIX_HIDDEN_FLOORS_DURING_FLASHING, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_hidden_floors_during_flashing, .required = &use_fixes_and_enhancements,
-				.text = "Fix hidden floors during flashing",
-				.explanation = "After uniting with the shadow in level 12, the hidden floors will not appear until after the flashing stops."},
-		{.id = SETTING_FIX_HANG_ON_TELEPORT, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_hang_on_teleport, .required = &use_fixes_and_enhancements,
-				.text = "Fix hang on teleport bug",
-				.explanation = "By jumping towards one of the bottom corners of the room and grabbing a ledge, you can teleport to the room above."},
-		{.id = SETTING_FIX_EXIT_DOOR, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_exit_door, .required = &use_fixes_and_enhancements,
-				.text = "Fix exit doors",
-				.explanation = "You can enter closed exit doors after you met the shadow or Jaffar died, or after you opened one of multiple exits."},
-		{.id = SETTING_FIX_QUICKSAVE_DURING_FEATHER, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_quicksave_during_feather, .required = &use_fixes_and_enhancements,
-				.text = "Fix quicksave in feather mode",
-				.explanation = "You cannot save game while floating in feather mode."},
-		{.id = SETTING_FIX_CAPED_PRINCE_SLIDING_THROUGH_GATE, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_caped_prince_sliding_through_gate, .required = &use_fixes_and_enhancements,
-				.text = "Fix sliding through closed gate",
-				.explanation = "If you are using the caped prince graphics, and crouch with your back towards a closed gate on the left edge on the room, then the prince will slide through the gate."},
-		{.id = SETTING_FIX_DOORTOP_DISABLING_GUARD, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_doortop_disabling_guard, .required = &use_fixes_and_enhancements,
-				.text = "Fix door top disabling guard",
-				.explanation = "Guards become inactive if they are standing on a door top (with floor), or if the prince is standing on a door top."},
-		{.id = SETTING_FIX_JUMPING_OVER_GUARD, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_jumping_over_guard, .required = &use_fixes_and_enhancements,
-				.text = "Fix jumping over guard",
-				.explanation = "Prince can jump over guards with a properly timed running jump."},
-		{.id = SETTING_FIX_DROP_2_ROOMS_CLIMBING_LOOSE_TILE, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_drop_2_rooms_climbing_loose_tile, .required = &use_fixes_and_enhancements,
-				.text = "Fix dropping 2 rooms with loose tile",
-				.explanation = "Prince can fall 2 rooms down while climbing a loose tile in a room above. (Trick 153)"},
-		{.id = SETTING_FIX_FALLING_THROUGH_FLOOR_DURING_SWORD_STRIKE, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_falling_through_floor_during_sword_strike, .required = &use_fixes_and_enhancements,
-				.text = "Fix dropping through floor striking",
-				.explanation = "Prince or guard can fall through the floor during a sword strike sequence."},
-		{.id = SETTING_FIX_REGISTER_QUICK_INPUT, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_register_quick_input, .required = &use_fixes_and_enhancements,
-				.text = "Fix fast inputs",
-				.explanation = "Input is ignored if a button or key is pressed and released between game ticks."},
-		{.id = SETTING_FIX_TURN_RUNNING_NEAR_WALL, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_turn_running_near_wall, .required = &use_fixes_and_enhancements,
-				.text = "Fix run turning near wall",
-				.explanation = "Ensures Prince safe steps near a wall/gate when facing in an opposite direction."},
-		{.id = SETTING_FIX_FEATHER_FALL_AFFECTS_GUARDS, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_feather_fall_affects_guards, .required = &use_fixes_and_enhancements,
-				.text = "Fix feather fall affecting guards",
-				.explanation = "Feather fall should not affect guards, because only the prince can drink the feather fall potion."},
-		{.id = SETTING_FIX_ONE_HP_STOPS_BLINKING, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_one_hp_stops_blinking, .required = &use_fixes_and_enhancements,
-				.text = "Fix one hit point stops blinking",
-				.explanation = "If the prince has only one hit point when he defeats Jaffar, it stops blinking."},
-		{.id = SETTING_FIX_DEAD_FLOATING_IN_AIR, .style = SETTING_STYLE_TOGGLE,
-				.linked = &fixes_saved.fix_dead_floating_in_air, .required = &use_fixes_and_enhancements,
-				.text = "Fix dead bodies floating in the air",
-				.explanation = "If the prince or a guard falls to his death onto a loose floor, the floor drops, but the body stays there in the air."},
 };
 
 NAMES_LIST(tile_type_setting_names, {
-		"Empty", "Floor", "Spikes", "Pillar", "Gate",                                                    // 0..4
 		"Stuck button", "Closer button", "Tapestry/floor", "Big pillar: bottom", "Big pillar: top",      // 5..9
 		"Potion", "Loose floor", "Tapestry", "Mirror", "Floor/debris",                                   // 10..14
 		"Raise button", "Level door: left", "Level door: right", "Chomper", "Torch",                     // 15..19
@@ -657,9 +429,6 @@ KEY_VALUE_LIST(direction_setting_names, {{"Left", dir_FF_left}, {"Right", dir_0_
 extern names_list_type never_is_16_list;
 
 setting_type mods_settings[] = {
-		{.id = SETTING_USE_CUSTOM_OPTIONS, .style = SETTING_STYLE_TOGGLE, .linked = &use_custom_options,
-				.text = "Use customization options",
-				.explanation = "Turn customization options on or off.\n(default = OFF)"},
 		{.id = SETTING_LEVEL_SETTINGS, .style = SETTING_STYLE_TEXT_ONLY, .required = &use_custom_options,
 				.text = "Customize level...",
 				.explanation = "Change level-specific options (such as level type, guard type, number of guard hitpoints)."},
@@ -2319,7 +2088,6 @@ void process_ingame_settings_user_managed(SDL_RWops* rw, rw_process_func_type pr
 	process(joystick_only_horizontal);
 	process(enable_replay);
 	process(start_fullscreen);
-	process(use_hardware_acceleration);
 	process(use_correct_aspect_ratio);
 	process(use_integer_scaling);
 	process(scaling_type);

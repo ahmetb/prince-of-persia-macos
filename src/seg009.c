@@ -19,6 +19,7 @@ The authors of this program may be contacted at https://forum.princed.org
 */
 
 #include "common.h"
+#include "macos_app.h"
 #include <time.h>
 #include <errno.h>
 
@@ -42,106 +43,26 @@ void sdlperror(const char* header) {
 	//quit(1);
 }
 
-char exe_dir[POP_MAX_PATH] = ".";
-bool found_exe_dir = false;
-#if ! (defined WIN32 || _WIN32 || WIN64 || _WIN64)
-char home_dir[POP_MAX_PATH];
-bool found_home_dir = false;
-char share_dir[POP_MAX_PATH];
-bool found_share_dir = false;
-#endif
-
-void find_exe_dir(void) {
-	if (found_exe_dir) return;
-#ifdef __amigaos4__
-	if(g_argc == 0) { // from Workbench
-		struct WBStartup *WBenchMsg = (struct WBStartup *)g_argv;
-		NameFromLock( WBenchMsg->sm_ArgList->wa_Lock, exe_dir, sizeof(exe_dir) );
-	}
-	else { // from Shell/CLI
-		NameFromLock( GetProgramDir(), exe_dir, sizeof(exe_dir) );
-	}
-#else
-	snprintf_check(exe_dir, sizeof(exe_dir), "%s", g_argv[0]);
-	char* last_slash = NULL;
-	char* pos = exe_dir;
-	for (char c = *pos; c != '\0'; ++pos, c = *pos) {
-		if (c == '/' || c == '\\') {
-			last_slash = pos;
-		}
-	}
-	if (last_slash != NULL) {
-		*last_slash = '\0';
-	}
-#endif
-	found_exe_dir = true;
-}
-
-#if ! (defined WIN32 || _WIN32 || WIN64 || _WIN64)
-void find_home_dir(void) {
-	if (found_home_dir) return;
-	const char* home_path = getenv("HOME");
-	snprintf_check(home_dir, POP_MAX_PATH - 1, "%s/.%s", home_path, POP_DIR_NAME);
-	if(file_exists(home_dir))
-		found_home_dir = true;
-}
-
-void find_share_dir(void) {
-	if (found_share_dir) return;
-	snprintf_check(share_dir, POP_MAX_PATH - 1, "%s/%s", SHARE_PATH, POP_DIR_NAME);
-	if(file_exists(share_dir))
-		found_share_dir = true;
-}
-#endif
-
 bool file_exists(const char* filename) {
 	return (access(filename, F_OK) != -1);
 }
 
-const char* find_first_file_match(char* dst, int size, char* format, const char* filename) {
-	find_exe_dir();
-#if defined WIN32 || _WIN32 || WIN64 || _WIN64
-	snprintf_check(dst, size, format, exe_dir, filename);
-#else
-	find_home_dir();
-	find_share_dir();
-	char* dirs[3] = {home_dir, share_dir, exe_dir};
-	for (int i = 0; i < 3; i++) {
-		snprintf_check(dst, size, format, dirs[i], filename);
-		if(file_exists(dst))
-			break;
+// Configuration reads (SDLPoP.ini/SDLPoP.cfg) resolve beneath the app-owned
+// Settings root; reads never touch the CWD, $HOME, share directories or the
+// executable location.
+const char* locate_file_(const char* filename, char* path_buffer, int buffer_size) {
+	if (!macos_copy_path(MACOS_SETTINGS, filename, path_buffer, (size_t)buffer_size)) {
+		path_buffer[0] = '\0';
 	}
-#endif
-	return (const char*) dst;
+	return (const char*) path_buffer;
 }
 
+// Configuration writes use the same Settings root as reads.
 const char* locate_save_file_(const char* filename, char* dst, int size) {
-	find_exe_dir();
-#if defined WIN32 || _WIN32 || WIN64 || _WIN64
-	snprintf_check(dst, size, "%s/%s", exe_dir, filename);
-#else
-	find_home_dir();
-	find_share_dir();
-	char* dirs[3] = {home_dir, share_dir, exe_dir};
-	for (int i = 0; i < 3; i++) {
-		struct stat path_stat;
-		int result = stat(dirs[i], &path_stat);
-		if (result == 0 && S_ISDIR(path_stat.st_mode) && access(dirs[i], W_OK) == 0) {
-			snprintf_check(dst, size, "%s/%s", dirs[i], filename);
-			break;
-		}
+	if (!macos_copy_path(MACOS_SETTINGS, filename, dst, (size_t)size)) {
+		dst[0] = '\0';
 	}
-#endif
 	return (const char*) dst;
-}
-const char* locate_file_(const char* filename, char* path_buffer, int buffer_size) {
-	if(file_exists(filename)) {
-		return filename;
-	} else {
-		// If failed, it may be that SDLPoP is being run from the wrong different working directory.
-		// We can try to rescue the situation by loading from the directory of the executable.
-		return find_first_file_match(path_buffer, buffer_size, "%s/%s", filename);
-	}
 }
 
 #ifdef _WIN32
@@ -409,52 +330,24 @@ int pop_wait(int timer_index,int time) {
 	return do_wait(timer_index);
 }
 
-static FILE* open_dat_from_root_or_data_dir(const char* filename) {
-	FILE* fp = NULL;
-	fp = fopen(filename, "rb");
-
-	// if failed, try if the DAT file can be opened in the data/ directory, instead of the main folder
-	if (fp == NULL) {
-		char data_path[POP_MAX_PATH];
-		snprintf_check(data_path, sizeof(data_path), "data/%s", filename);
-
-		if (!file_exists(data_path)) {
-			find_first_file_match(data_path, sizeof(data_path), "%s/data/%s", filename);
-		}
-
-		// verify that this is a regular file and not a directory (otherwise, don't open)
-		struct stat path_stat;
-		stat(data_path, &path_stat);
-		if (S_ISREG(path_stat.st_mode)) {
-			fp = fopen(data_path, "rb");
-		}
+static FILE* open_dat_in_game_data(const char* filename) {
+	char dat_path[POP_MAX_PATH];
+	if (!macos_copy_path(MACOS_GAME_DATA, filename, dat_path, sizeof(dat_path))) {
+		return NULL;
 	}
-	return fp;
+	return fopen(dat_path, "rb");
 }
 
 int showmessage(char* text,int arg_4,void* arg_0);
 
 // seg009:0F58
+// Original DATs load exclusively from the app-owned GameData root. There is
+// deliberately no CWD/home/share/executable/data-directory fallback, and no
+// alternate mod asset source.
 dat_type* open_dat(const char* filename, int optional) {
 	FILE* fp = NULL;
-	if (!use_custom_levelset) {
-		fp = open_dat_from_root_or_data_dir(filename);
-	}
-	else {
-		// Don't complain about missing data files if we are only looking in the mod folder, because they might exist in the data folder.
-		// (This is possible only if open_dat() was called by load_all_sounds().)
-		if (!skip_mod_data_files && skip_normal_data_files) optional = 1;
+	fp = open_dat_in_game_data(filename);
 
-		if (!skip_mod_data_files && !(always_use_original_graphics && optional == 'G')) {
-			char filename_mod[POP_MAX_PATH];
-			// before checking the root directory, first try mods/MODNAME/
-			snprintf_check(filename_mod, sizeof(filename_mod), "%s/%s", mod_data_path, filename);
-			fp = fopen(filename_mod, "rb");
-		}
-		if (fp == NULL && !skip_normal_data_files) {
-			fp = open_dat_from_root_or_data_dir(filename);
-		}
-	}
 	dat_header_type dat_header;
 	dat_table_type* dat_table = NULL;
 
@@ -474,31 +367,13 @@ dat_type* open_dat(const char* filename, int optional) {
 		pointer->handle = fp;
 		pointer->dat_table = dat_table;
 	} else if (optional == 0) {
-		// showmessage will crash if we call it before certain things are initialized!
-		// Solution: In pop_main(), I moved the first open_dat() call after init_copyprot_dialog().
-		// /*
-		// There is no DAT file, verify whether the corresponding directory exists.
-		char filename_no_ext[POP_MAX_PATH];
-		// strip the .DAT file extension from the filename (use folders simply named TITLE, KID, VPALACE, etc.)
-		strncpy(filename_no_ext, pointer->filename, sizeof(filename_no_ext));
-		size_t len = strlen(filename_no_ext);
-		if (len >= 5 && filename_no_ext[len-4] == '.') {
-			filename_no_ext[len-4] = '\0'; // terminate, so ".DAT" is deleted from the filename
+		char error_message[256];
+		snprintf_check(error_message, sizeof(error_message),
+			"Cannot find a required game data file: %s", filename);
+		if (onscreen_surface_ != NULL && copyprot_dialog != NULL) {
+			macos_present_error("Missing game data", error_message);
+			quit(1);
 		}
-		char foldername[POP_MAX_PATH];
-		snprintf_check(foldername,sizeof(foldername),"data/%s",filename_no_ext);
-		const char* data_path = locate_file(foldername);
-		struct stat path_stat;
-		int result = stat(data_path, &path_stat);
-		if (result != 0 || !S_ISDIR(path_stat.st_mode)) {
-			char error_message[256];
-			snprintf_check(error_message, sizeof(error_message), "Cannot find a required data file: %s or folder: %s\nPress any key to quit.", filename, foldername);
-			if (onscreen_surface_ != NULL && copyprot_dialog != NULL) { // otherwise showmessage will crash
-				showmessage(error_message, 1, &key_test_quit);
-				quit(1);
-			}
-		}
-		// */
 	}
 out:
 	// stub
@@ -2230,61 +2105,8 @@ sound_buffer_type* load_sound(int index) {
 	sound_buffer_type* result = NULL;
 	//printf("load_sound(%d)\n", index);
 	init_digi();
-	if (enable_music && !digi_unavailable && result == NULL && index >= 0 && index < max_sound_id) {
-		//printf("Trying to load from music folder\n");
-
-		//load_sound_names();  // Moved to load_sounds()
-		if (sound_names != NULL && sound_name(index) != NULL) {
-			//printf("Loading from music folder\n");
-			do {
-				FILE* fp = NULL;
-				char filename[POP_MAX_PATH];
-				if (!skip_mod_data_files) {
-					// before checking the root directory, first try mods/MODNAME/
-					snprintf_check(filename, sizeof(filename), "%s/music/%s.ogg", mod_data_path, sound_name(index));
-					fp = fopen(filename, "rb");
-				}
-				if (fp == NULL && !skip_normal_data_files) {
-					snprintf_check(filename, sizeof(filename), "data/music/%s.ogg", sound_name(index));
-					fp = fopen(locate_file(filename), "rb");
-				}
-				if (fp == NULL) {
-					break;
-				}
-				// Read the entire file (undecoded) into memory.
-				struct stat info;
-				if (fstat(fileno(fp), &info))
-					break;
-				size_t file_size = (size_t) MAX(0, info.st_size);
-				byte* file_contents = malloc(file_size);
-				if (fread(file_contents, 1, file_size, fp) != file_size) {
-					free(file_contents);
-					fclose(fp);
-					break;
-				}
-				fclose(fp);
-
-				// Decoding the entire file immediately would make the loading time much longer.
-				// However, we can also create the decoder now, and only use it when we are actually playing the file.
-				// (In the audio callback, we'll decode chunks of samples to the output stream, as needed).
-				int error = 0;
-				stb_vorbis* decoder = stb_vorbis_open_memory(file_contents, (int)file_size, &error, NULL);
-				if (decoder == NULL) {
-					printf("Error %d when creating decoder from file \"%s\"!\n", error, filename);
-					free(file_contents);
-					break;
-				}
-				result = malloc(sizeof(sound_buffer_type));
-				result->type = sound_ogg;
-				result->ogg.total_length = stb_vorbis_stream_length_in_samples(decoder) * sizeof(short);
-				result->ogg.file_contents = file_contents; // Remember in case we want to free the sound later.
-				result->ogg.decoder = decoder;
-			} while(0); // do once (breakable block)
-		} else {
-			//printf("sound_names = %p\n", sound_names);
-			//printf("sound_names[%d] = %p\n", index, sound_name(index));
-		}
-	}
+	// Original-music profile only: all sounds come from the validated DAT
+	// resources. There is no OGG asset lookup and no external track identity.
 	if (result == NULL) {
 		//printf("Trying to load from DAT\n");
 		result = (sound_buffer_type*) load_from_opendats_alloc(index + 10000, "bin", NULL, NULL);
@@ -2294,7 +2116,7 @@ sound_buffer_type* load_sound(int index) {
 		free(result);
 		result = converted;
 	}
-	if (result == NULL && !skip_normal_data_files) {
+	if (result == NULL) {
 		fprintf(stderr, "Failed to load sound %d '%s'\n", index, sound_name(index));
 	}
 	return result;
@@ -2560,7 +2382,9 @@ void set_gr_mode(byte grmode) {
 #ifdef SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING
 	SDL_SetHint(SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING, "1");
 #endif
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_NOPARACHUTE | SDL_INIT_GAMECONTROLLER) != 0) {
+	// Video was initialized up front by macos_prepare_application(); here we
+	// only bring up the remaining timer/controller subsystems.
+	if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_NOPARACHUTE | SDL_INIT_GAMECONTROLLER) != 0) {
 		sdlperror("set_gr_mode: SDL_Init");
 		quit(1);
 	}
@@ -2577,61 +2401,62 @@ void set_gr_mode(byte grmode) {
 	flags |= SDL_WINDOW_RESIZABLE;
 	flags |= SDL_WINDOW_ALLOW_HIGHDPI; // for Retina displays
 
-	// Should use different default window dimensions when using 4:3 aspect ratio
-	if (use_correct_aspect_ratio && pop_window_width == 640 && pop_window_height == 400) {
-		pop_window_height = 480;
-	}
-
-#if _WIN32
-	// Tell Windows that the application is DPI aware, to prevent unwanted bitmap stretching.
-	// SetProcessDPIAware() is only available on Windows Vista and later, so we need to load it dynamically.
-	typedef BOOL (WINAPI *dpiaware)(void);
-	HMODULE user32dll = LoadLibraryA("User32.dll");
-	if (user32dll) {
-		dpiaware SetProcessDPIAware = (dpiaware)GetProcAddress(user32dll, "SetProcessDPIAware");
-		if (SetProcessDPIAware) {
-			SetProcessDPIAware();
-		}
-		FreeLibrary(user32dll);
-	}
-#endif
-
 #ifdef USE_REPLAY
 	if (!is_validate_mode) // run without a window if validating a replay
 #endif
 	window_ = SDL_CreateWindow(WINDOW_TITLE,
 	                           SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 	                           pop_window_width, pop_window_height, flags);
+	if (window_ == NULL) {
+		sdlperror("set_gr_mode: SDL_CreateWindow");
+		quit(1);
+	}
 	// Make absolutely sure that VSync will be off, to prevent timer issues.
 	SDL_SetHint(SDL_HINT_RENDER_VSYNC, "0");
-	flags = 0;
-	switch (use_hardware_acceleration) {
-		case 0:  flags |= SDL_RENDERER_SOFTWARE;    break;
-		case 1:  flags |= SDL_RENDERER_ACCELERATED; break;
-		case 2:  // let SDL decide
-		         // fallthrough!
-		default: break;
-	}
-	renderer_ = SDL_CreateRenderer(window_, -1 , flags | SDL_RENDERER_TARGETTEXTURE);
-	SDL_RendererInfo renderer_info;
-	if (SDL_GetRendererInfo(renderer_, &renderer_info) == 0) {
-		if (renderer_info.flags & SDL_RENDERER_TARGETTEXTURE) {
-			is_renderer_targettexture_supported = true;
+
+	// Require the actual Metal renderer: a hint alone is not enough, because
+	// SDL silently falls back to other drivers. Enumerate drivers, pick the
+	// index named "metal", create it accelerated with target-texture support,
+	// and verify the resulting renderer's name before proceeding.
+	int driver_count = SDL_GetNumRenderDrivers();
+	int metal_index = -1;
+	for (int i = 0; i < driver_count; ++i) {
+		SDL_RendererInfo info;
+		if (SDL_GetRenderDriverInfo(i, &info) == 0 && strcmp(info.name, "metal") == 0) {
+			metal_index = i;
+			break;
 		}
 	}
+	if (metal_index < 0) {
+		macos_present_error("Metal renderer unavailable",
+		                    "This app requires the Metal renderer, but SDL did not report a Metal driver.");
+		quit(1);
+	}
+	renderer_ = SDL_CreateRenderer(window_, metal_index,
+	                               SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+	if (renderer_ == NULL) {
+		sdlperror("set_gr_mode: SDL_CreateRenderer (metal)");
+		macos_present_error("Metal renderer unavailable",
+		                    "SDL could not create a Metal renderer. No OpenGL or software fallback is used.");
+		quit(1);
+	}
+	SDL_RendererInfo renderer_info;
+	if (SDL_GetRendererInfo(renderer_, &renderer_info) != 0 ||
+	    strcmp(renderer_info.name, "metal") != 0) {
+		macos_present_error("Metal renderer unavailable",
+		                    "The created renderer is not Metal. No fallback renderer is used.");
+		quit(1);
+	}
+	if (renderer_info.flags & SDL_RENDERER_TARGETTEXTURE) {
+		is_renderer_targettexture_supported = true;
+	}
+	printf("Renderer: %s (metal required)\n", renderer_info.name);
 	if (use_integer_scaling) {
 #if SDL_VERSION_ATLEAST(2,0,5) // SDL_RenderSetIntegerScale
 		SDL_RenderSetIntegerScale(renderer_, SDL_TRUE);
 #else
 		printf("Warning: You need to compile with SDL 2.0.5 or newer for the use_integer_scaling option.\n");
 #endif
-	}
-
-	SDL_Surface* icon = IMG_Load(locate_file("data/icon.png"));
-	if (icon == NULL) {
-		sdlperror("set_gr_mode: Could not load icon");
-	} else {
-		SDL_SetWindowIcon(window_, icon);
 	}
 
 	apply_aspect_ratio();
@@ -2846,7 +2671,6 @@ int get_text_color(int cga_color,int low_half,int high_half_mask) {
 }
 
 void load_from_opendats_metadata(int resource_id, const char* extension, FILE** out_fp, data_location* result, byte* checksum, int* size, dat_type** out_pointer) {
-	char image_filename[POP_MAX_PATH];
 	FILE* fp = NULL;
 	*result = data_none;
 	// Go through all open DAT files.
@@ -2883,47 +2707,6 @@ void load_from_opendats_metadata(int resource_id, const char* extension, FILE** 
 			} else {
 				// not found
 				fp = NULL;
-			}
-		}
-		// If the image is not in the DAT then try the directory as well.
-		if (*result == data_none) {
-			// If it's a directory:
-			char filename_no_ext[POP_MAX_PATH];
-			// strip the .DAT file extension from the filename (use folders simply named TITLE, KID, VPALACE, etc.)
-			strncpy(filename_no_ext, pointer->filename, sizeof(filename_no_ext));
-			size_t len = strlen(filename_no_ext);
-			if (len >= 5 && filename_no_ext[len-4] == '.') {
-				filename_no_ext[len-4] = '\0'; // terminate, so ".DAT" is deleted from the filename
-			}
-			snprintf_check(image_filename,sizeof(image_filename),"data/%s/res%d.%s",filename_no_ext, resource_id, extension);
-			if (!use_custom_levelset) {
-				//printf("loading (binary) %s",image_filename);
-				fp = fopen(locate_file(image_filename), "rb");
-			}
-			else {
-				if (!skip_mod_data_files) {
-					char image_filename_mod[POP_MAX_PATH];
-					// before checking data/, first try mods/MODNAME/data/
-					snprintf_check(image_filename_mod, sizeof(image_filename_mod), "%s/%s", mod_data_path, image_filename);
-					//printf("loading (binary) %s",image_filename_mod);
-					fp = fopen(locate_file(image_filename_mod), "rb");
-				}
-				if (fp == NULL && !skip_normal_data_files) {
-					fp = fopen(locate_file(image_filename), "rb");
-				}
-			}
-
-			if (fp != NULL) {
-				struct stat buf;
-				if (fstat(fileno(fp), &buf) == 0) {
-					*result = data_directory;
-					*size = (int)buf.st_size;
-				} else {
-					printf("Cannot fstat: ");
-					perror(image_filename);
-					fclose(fp);
-					fp = NULL;
-				}
 			}
 		}
 	}

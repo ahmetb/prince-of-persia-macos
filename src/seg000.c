@@ -19,6 +19,7 @@ The authors of this program may be contacted at https://forum.princed.org
 */
 
 #include "common.h"
+#include "macos_app.h"
 #include <setjmp.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -62,9 +63,12 @@ void pop_main() {
 #endif
 
 	load_global_options();
-	check_mod_param();
 #ifdef USE_MENU
 	load_ingame_settings();
+#endif
+#ifdef USE_REPLAY
+	// Legacy replay output lives under the app-owned Replays root.
+	macos_copy_path(MACOS_REPLAYS, "", replays_folder, sizeof(replays_folder));
 #endif
 	if (check_param("mute")) is_sound_on = 0;
 	turn_sound_on_off((is_sound_on != 0) * 15); // Turn off sound/music if those options were set.
@@ -85,13 +89,11 @@ void pop_main() {
 	}
 #endif
 
-	// Initialize everything before load_mod_options() so it can show an error dialog if needed.
+	// Initialize everything before loading the title/level data.
 	/*video_mode =*/ parse_grmode();
 	current_target_surface = rect_sthg(onscreen_surface_, &screen_rect);
 	set_hc_pal();
 	init_copyprot_dialog();
-
-	load_mod_options();
 
 	// CusPop option
 	is_blind_mode = custom->start_in_blind_mode;
@@ -1036,8 +1038,6 @@ void load_sounds(int first,int last) {
 	if (sound_flags & sfMidi) {
 		midi_dat = open_dat("MIDISND1.DAT", 0);
 	}
-
-	load_sound_names();
 
 	for (short current = first; current <= last; ++current) {
 		if (sound_pointers[current] != NULL) continue;
@@ -2468,46 +2468,11 @@ void show_splash() {
 }
 
 const char* get_writable_file_path(char* custom_path_buffer, size_t max_len, const char* file_name) {
-	// If the SDLPOP_SAVE_PATH environment variable is set, put all saves into the directory it points to.
-	// Otherwise, save to the home directory
-#if defined WIN32 || _WIN32 || WIN64 || _WIN64
-	const char* save_path = getenv("SDLPOP_SAVE_PATH");
-#else
-	char save_path[POP_MAX_PATH];
-	const char* custom_save_path = getenv("SDLPOP_SAVE_PATH");
-	const char* home_path = getenv("HOME");
-	if (custom_save_path != NULL && custom_save_path[0] != '\0')
-		snprintf_check(save_path, max_len, "%s", custom_save_path);
-	else if (home_path != NULL && home_path[0] != '\0')
-		snprintf_check(save_path, max_len, "%s/.%s", home_path, POP_DIR_NAME);
-#endif
-
-	if (save_path != NULL && save_path[0] != '\0') {
-#if defined WIN32 || _WIN32 || WIN64 || _WIN64
-		mkdir (save_path);
-#else
-		mkdir (save_path, 0700);
-#endif
-		if (use_custom_levelset) {
-			// First create the directory...
-			snprintf_check(custom_path_buffer, max_len, "%s/%s", save_path, levelset_name);
-#if defined WIN32 || _WIN32 || WIN64 || _WIN64
-			mkdir (custom_path_buffer);
-#else
-			mkdir (custom_path_buffer, 0700);
-#endif
-			snprintf_check(custom_path_buffer, max_len, "%s/%s/%s", save_path, levelset_name, file_name);
-		} else {
-			snprintf_check(custom_path_buffer, max_len, "%s/%s", save_path, file_name);
-		}
+	// Writable files (the Hall of Fame) live beneath the app-owned Scores
+	// root; the CWD, $HOME and SDLPOP_SAVE_PATH no longer redirect app storage.
+	if (macos_copy_path(MACOS_SCORES, file_name, custom_path_buffer, max_len)) {
 		return custom_path_buffer;
 	}
-
-	if (!use_custom_levelset) {
-		return file_name;
-	}
-	// if playing a custom levelset, try to use the mod folder
-	snprintf_check(custom_path_buffer, max_len, "%s/%s", mod_data_path, file_name);
-	return custom_path_buffer;
+	return file_name;
 }
 

@@ -19,7 +19,12 @@ the Free Software Foundation, either version 3 of the License, or
 #import <errno.h>
 #import <stdint.h>
 #import <stdio.h>
+#import <stdlib.h>
 #import <string.h>
+
+// Engine globals (defined in src/data.c).
+extern int g_argc;
+extern char **g_argv;
 
 #define POP_SUPPORT_DIR_NAME "local.princeofpersia.metal"
 
@@ -203,7 +208,8 @@ static bool validate_dat_structure(const char *path, char *error, size_t error_c
 	uint32_t table_offset = read_le32(&header[0]);
 	uint16_t table_size = read_le16(&header[4]);
 
-	if (table_size < 8 || (table_size % 8) != 0) {
+	// The table is res_count (u16) followed by res_count * 8-byte entries.
+	if (table_size < 2 || ((table_size - 2) % 8) != 0) {
 		fclose(f);
 		snprintf(error, error_cap, "%s: invalid table size", path);
 		return false;
@@ -216,7 +222,7 @@ static bool validate_dat_structure(const char *path, char *error, size_t error_c
 		return false;
 	}
 
-	int res_count = table_size / 8;
+	int res_count = (table_size - 2) / 8;
 	uint8_t *table = malloc(table_size);
 	if (table == NULL) {
 		fclose(f);
@@ -233,7 +239,7 @@ static bool validate_dat_structure(const char *path, char *error, size_t error_c
 	fclose(f);
 
 	for (int i = 0; i < res_count; ++i) {
-		const uint8_t *e = &table[i * 8];
+		const uint8_t *e = &table[2 + i * 8];
 		uint32_t offset = read_le32(&e[2]);
 		uint16_t size = read_le16(&e[6]);
 		// checksum byte + payload must fit within the file.
@@ -656,6 +662,15 @@ static bool publish_candidate(const char *candidate_path, char *error, size_t er
 
 bool macos_prepare_application(void) {
 	@autoreleasepool {
+		// Canonicalize argv[0] to the bundle executable's absolute path; the
+		// settings layer hashes it to invalidate SDLPoP.cfg when the app changes.
+		if (g_argc > 0 && g_argv != NULL && g_argv[0] != NULL) {
+			char *resolved = realpath(g_argv[0], NULL);
+			if (resolved != NULL) {
+				g_argv[0] = strdup(resolved);
+				free(resolved);
+			}
+		}
 		// 1. Initialize SDL video first: this creates SDLApplication, its
 		//    delegate and the Cocoa event pumping used by set_gr_mode later.
 		if ((SDL_WasInit(SDL_INIT_VIDEO) & SDL_INIT_VIDEO) == 0) {

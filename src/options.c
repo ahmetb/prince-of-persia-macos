@@ -19,6 +19,7 @@ The authors of this program may be contacted at https://forum.princed.org
 */
 
 #include "common.h"
+#include "macos_app.h"
 #include <ctype.h>
 #ifdef __amigaos4__
 	#define strtoimax(a,b,c) strtoll(a,b,c)
@@ -82,7 +83,6 @@ int ini_load(const char *filename,
 	return 0;
 }
 
-NAMES_LIST(use_hardware_acceleration_names, {"false", "true", "default"}); // this is needed because use_hardware_acceleration is not a bool!
 NAMES_LIST(level_type_names, {"dungeon", "palace"});
 //NAMES_LIST(guard_type_names, {"guard", "fat", "skel", "vizier", "shadow"});
 // NAMES_LIST must start from 0, so I need KEY_VALUE_LIST if I want to assign a name to -1.
@@ -178,12 +178,6 @@ static int global_ini_callback(const char *section, const char *name, const char
 #ifdef USE_MENU
 		process_boolean("enable_pause_menu", &enable_pause_menu);
 #endif
-		if (strcasecmp(name, "mods_folder") == 0) {
-			if (value[0] != '\0' && strcasecmp(value, "default") != 0) {
-				snprintf_check(mods_folder, sizeof(mods_folder), "%s", locate_file(value));
-			}
-			return 1;
-		}
 		process_boolean("enable_copyprot", &enable_copyprot);
 		process_boolean("enable_music", &enable_music);
 		process_boolean("enable_fade", &enable_fade);
@@ -193,26 +187,12 @@ static int global_ini_callback(const char *section, const char *name, const char
 		process_boolean("start_fullscreen", &start_fullscreen);
 		process_word("pop_window_width", &pop_window_width, NULL);
 		process_word("pop_window_height", &pop_window_height, NULL);
-		process_byte("use_hardware_acceleration", &use_hardware_acceleration, &use_hardware_acceleration_names_list);
 		process_boolean("use_correct_aspect_ratio", &use_correct_aspect_ratio);
 		process_boolean("use_integer_scaling", &use_integer_scaling);
 		process_byte("scaling_type", &scaling_type, &scaling_type_names_list);
 		process_boolean("enable_controller_rumble", &enable_controller_rumble);
 		process_boolean("joystick_only_horizontal", &joystick_only_horizontal);
 		process_int("joystick_threshold", &joystick_threshold, NULL);
-
-		if (strcasecmp(name, "levelset") == 0) {
-			if (value[0] == '\0' || strcasecmp(value, "original") == 0 || strcasecmp(value, "default") == 0) {
-				use_custom_levelset = 0;
-			} else {
-				use_custom_levelset = 1;
-				strcpy(levelset_name, value);
-			}
-			return 1;
-		}
-
-		process_boolean("always_use_original_music", &always_use_original_music);
-		process_boolean("always_use_original_graphics", &always_use_original_graphics);
 
 		if (strcasecmp(name, "gamecontrollerdb_file") == 0) {
 			if (value[0] != '\0') {
@@ -228,13 +208,6 @@ static int global_ini_callback(const char *section, const char *name, const char
 
 #ifdef USE_REPLAY
 		process_boolean("enable_replay", &enable_replay);
-
-		if (strcasecmp(name, "replays_folder") == 0) {
-			if (value[0] != '\0' && strcasecmp(value, "default") != 0) {
-				snprintf_check(replays_folder, sizeof(replays_folder), "%s", locate_file(value));
-			}
-			return 1;
-		}
 #endif
 #ifdef USE_LIGHTING
 		process_boolean("enable_lighting", &enable_lighting);
@@ -479,8 +452,7 @@ void set_options_to_default() {
 	enable_text = 1;
 	enable_info_screen = 1;
 	start_fullscreen = 0;
-	use_hardware_acceleration = 2;
-	use_correct_aspect_ratio = 0;
+	use_correct_aspect_ratio = 1;
 	use_integer_scaling = 0;
 	scaling_type = 0;
 	enable_controller_rumble = 1;
@@ -500,22 +472,33 @@ void set_options_to_default() {
 	turn_custom_options_on_off(0);
 }
 
-void load_global_options() {
-	set_options_to_default();
-	ini_load(locate_file("SDLPoP.ini"), global_ini_callback); // global configuration
-	load_dos_exe_modifications("."); // read PRINCE.EXE in the current working directory
+// Copies the bundled default SDLPoP.ini into Settings on the very first
+// launch. Existing user configuration is never overwritten.
+static void init_default_settings_ini(void) {
+	char setting_ini[POP_MAX_PATH];
+	char resource_ini[POP_MAX_PATH];
+	if (!macos_copy_path(MACOS_SETTINGS, "SDLPoP.ini", setting_ini, sizeof(setting_ini)) ||
+	    !macos_copy_path(MACOS_RESOURCES, "SDLPoP.ini", resource_ini, sizeof(resource_ini))) {
+		return;
+	}
+	if (file_exists(setting_ini)) return;
+	FILE* src = fopen(resource_ini, "rb");
+	if (src == NULL) return;
+	FILE* dst = fopen(setting_ini, "wb");
+	if (dst == NULL) { fclose(src); return; }
+	byte buffer[4096];
+	size_t n;
+	while ((n = fread(buffer, 1, sizeof(buffer), src)) > 0) fwrite(buffer, 1, n, dst);
+	fclose(dst);
+	fclose(src);
 }
 
-void check_mod_param() {
-	// The 'mod' command line argument can override the levelset choice in SDLPoP.ini
-	// usage: prince mod "Mod Name"
-	// TODO: maybe allow absolute paths, instead of only paths relative to the mods folder?
-	const char* mod_param = check_param("mod");
-	if (mod_param != NULL) {
-		use_custom_levelset = true;
-		memset(levelset_name, 0, sizeof(levelset_name));
-		snprintf_check(levelset_name, sizeof(levelset_name), "%s", mod_param);
-	}
+void load_global_options() {
+	set_options_to_default();
+	init_default_settings_ini();
+	char ini_path[POP_MAX_PATH];
+	if (!macos_copy_path(MACOS_SETTINGS, "SDLPoP.ini", ini_path, sizeof(ini_path))) return;
+	ini_load(ini_path, global_ini_callback); // global configuration
 }
 
 enum dos_version {

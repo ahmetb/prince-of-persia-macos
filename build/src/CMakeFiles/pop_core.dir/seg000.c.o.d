@@ -93,6 +93,12 @@ src/CMakeFiles/pop_core.dir/seg000.c.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_posix_vdisable.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_useconds_t.h \
   /Users/ahmet.balkan/junk/prince.exe/src/config.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/21/include/limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h \
   /Users/ahmet.balkan/junk/prince.exe/src/types.h \
   /Users/ahmet.balkan/junk/prince.exe/src/stb_vorbis.c \
   /Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2-build/include/SDL2/SDL.h \
@@ -215,4 +221,5 @@ src/CMakeFiles/pop_core.dir/seg000.c.o: \
   /Users/ahmet.balkan/junk/prince.exe/build/_deps/sdl2_image-src/include/SDL_image.h \
   /Users/ahmet.balkan/junk/prince.exe/src/proto.h \
   /Users/ahmet.balkan/junk/prince.exe/src/data.h \
+  /Users/ahmet.balkan/junk/prince.exe/src/macos_app.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/setjmp.h
