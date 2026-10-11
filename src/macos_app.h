@@ -45,11 +45,6 @@ bool macos_copy_path(MacosPathRoot root, const char *relative, char *out, size_t
 // Presents a modal, non-fatal native alert on the main thread.
 void macos_present_error(const char *title, const char *message);
 
-// Runs a native save/load panel (.popsave filtering, default Saves directory),
-// pumping `pump` between run-loop iterations, and reports the result through
-// game_complete_panel(generation, path, cancelled).
-void macos_run_game_panel(uint64_t generation, bool is_save, void (*pump)(void));
-
 #ifdef __cplusplus
 }
 #endif

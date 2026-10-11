@@ -13,7 +13,6 @@ the Free Software Foundation, either version 3 of the License, or
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>
-#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import <SDL.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <sys/stat.h>
@@ -825,33 +824,4 @@ static void install_game_menu(void) {
 
 	gameItem.submenu = gameMenu;
 	[mainMenu addItem:gameItem];
-}
-
-void macos_run_game_panel(uint64_t generation, bool is_save, void (*pump)(void)) {
-	NSSavePanel *panel = is_save ? [NSSavePanel savePanel] : (NSSavePanel *)[NSOpenPanel openPanel];
-	UTType *popsave = [UTType typeWithFilenameExtension:@"popsave"];
-	panel.allowedContentTypes = @[popsave];
-	panel.allowsOtherFileTypes = NO;
-	panel.canCreateDirectories = YES;
-	if (is_save) {
-		panel.nameFieldStringValue = @"game.popsave";
-	}
-
-	char saves[PATH_MAX];
-	if (macos_copy_path(MACOS_SAVES, "", saves, sizeof(saves))) {
-		panel.directoryURL = [NSURL fileURLWithPath:@(saves)];
-	}
-
-	// Make the cursor visible and clickable while the panel is up, then run the
-	// panel as an app-modal dialog (Cocoa's own run loop keeps it responsive;
-	// the game frame stays frozen behind it).
-	SDL_ShowCursor(SDL_ENABLE);
-	NSModalResponse response = [panel runModal];
-
-	bool cancelled = (response != NSModalResponseOK);
-	NSString *chosen = nil;
-	if (!cancelled) {
-		chosen = panel.URL.path;
-	}
-	game_complete_panel(generation, cancelled ? NULL : chosen.UTF8String, cancelled);
 }
